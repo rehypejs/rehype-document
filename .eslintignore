@@ -1,0 +1,4 @@
+coverage/
+example.js
+rehype-document.js
+rehype-document.min.js
