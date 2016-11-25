@@ -31,7 +31,7 @@ process.stdin
 
 When the following is given on **stdin**(4):
 
-```md
+```markdown
 ## Hello world!
 
 This is **my** document.
