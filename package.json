@@ -11,17 +11,14 @@
     "wrap",
     "document"
   ],
-  "files": [
-    "index.js"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wooorm/rehype-document.git"
-  },
+  "repository": "https://github.com/wooorm/rehype-document",
   "bugs": "https://github.com/wooorm/rehype-document/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
   ],
   "dependencies": {
     "doctype": "^2.0.0",
