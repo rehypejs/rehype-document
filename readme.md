@@ -1,12 +1,10 @@
 # rehype-document [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
 
-<!--lint disable heading-increment list-item-spacing-->
-
 Wrap a document around HTML with [**rehype**][rehype].
 
 ## Installation
 
-[npm][npm-install]:
+[npm][]:
 
 ```bash
 npm install rehype-document
@@ -58,7 +56,7 @@ Yields the following on **stdout**(4):
 
 ## API
 
-### `rehype.use(document[, options])`
+### `rehype().use(document[, options])`
 
 ###### `options`
 
@@ -89,7 +87,7 @@ Yields the following on **stdout**(4):
 
 [codecov]: https://codecov.io/github/wooorm/rehype-document
 
-[npm-install]: https://docs.npmjs.com/cli/install
+[npm]: https://docs.npmjs.com/cli/install
 
 [license]: LICENSE
 
