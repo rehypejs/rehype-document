@@ -62,7 +62,7 @@ function attacher(origin, options) {
     body.push(line());
 
     return u('root', [
-      u('directive', {name: '!doctype'}, '!doctype ' + doctypes(settings.doctype || 5)),
+      u('doctype', {name: doctypes(settings.doctype || 5)}),
       line(),
       h('html', {lang: settings.language || 'en'}, [
         line(),

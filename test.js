@@ -8,7 +8,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document).process('', {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -25,7 +25,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document, {title: 'alpha'}).process('', {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -43,7 +43,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document).process({filename: 'bravo', contents: 'charlie'}, {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -62,7 +62,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document, {language: 'en-GB'}).process('', {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en-GB">',
       '<head>',
       '<meta charset="utf-8">',
@@ -79,7 +79,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document, {responsive: false}).process('', {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -95,7 +95,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document, {doctype: 4}).process('', {fragment: true}).toString(),
     [
-      '<!doctype HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
+      '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -112,7 +112,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document, {css: 'delta.css'}).process('', {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -130,7 +130,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document, {css: ['echo.css', 'foxtrot.css']}).process('', {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -149,7 +149,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document, {js: 'golf.js'}).process('', {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -167,7 +167,7 @@ test('document()', function (t) {
   t.equal(
     rehype().use(document, {js: ['hotel.js', 'india.js']}).process('', {fragment: true}).toString(),
     [
-      '<!doctype html>',
+      '<!DOCTYPE html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',

@@ -40,7 +40,7 @@ This is **my** document.
 Yields the following on **stdout**(4):
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
