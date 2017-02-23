@@ -14,19 +14,22 @@ npm install rehype-document
 
 ```javascript
 var unified = require('unified');
+var createStream = require('unified-stream');
 var parse = require('remark-parse');
 var mutate = require('remark-rehype');
 var stringify = require('rehype-stringify');
 var document = require('rehype-document');
 
+var processor = unified()
+  .use(parse)
+  .use(mutate)
+  .use(document, {title: 'Hi!'})
+  .use(stringify);
+
 process.stdin
-    .pipe(unified())
-    .use(parse)
-    .use(mutate)
-    .use(document, {title: 'Hi!'})
-    .use(stringify)
-    .on('error', console.log)
-    .pipe(process.stdout);
+  .pipe(createStream(processor))
+  .pipe(process.stdout)
+  .on('error', console.error);
 ```
 
 When the following is given on **stdin**(4):

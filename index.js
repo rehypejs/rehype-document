@@ -6,7 +6,7 @@ var doctypes = require('doctype');
 
 module.exports = attacher;
 
-function attacher(origin, options) {
+function attacher(options) {
   var settings = options || {};
   var css = settings.css || [];
   var js = settings.js || [];
@@ -22,7 +22,7 @@ function attacher(origin, options) {
   return transformer;
 
   function transformer(tree, file) {
-    var title = settings.title || file.filename;
+    var title = settings.title || file.stem;
     var body = tree.children.concat();
     var head = [line(), h('meta', {charset: 'utf-8'})];
     var length;

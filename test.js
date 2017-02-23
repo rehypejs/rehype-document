@@ -6,7 +6,11 @@ var document = require('./index.js');
 
 test('document()', function (t) {
   t.equal(
-    rehype().use(document).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document)
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en">',
@@ -23,7 +27,11 @@ test('document()', function (t) {
   );
 
   t.equal(
-    rehype().use(document, {title: 'alpha'}).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {title: 'alpha'})
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en">',
@@ -41,7 +49,11 @@ test('document()', function (t) {
   );
 
   t.equal(
-    rehype().use(document).process({filename: 'bravo', contents: 'charlie'}, {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document)
+      .processSync({path: '~/bravo.md', contents: 'charlie'})
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en">',
@@ -56,11 +68,15 @@ test('document()', function (t) {
       '</html>',
       ''
     ].join('\n'),
-    'should get `title` from `file.filename`'
+    'should get `title` from `file.stem`'
   );
 
   t.equal(
-    rehype().use(document, {language: 'en-GB'}).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {language: 'en-GB'})
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en-GB">',
@@ -77,7 +93,11 @@ test('document()', function (t) {
   );
 
   t.equal(
-    rehype().use(document, {responsive: false}).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {responsive: false})
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en">',
@@ -93,7 +113,11 @@ test('document()', function (t) {
   );
 
   t.equal(
-    rehype().use(document, {doctype: 4}).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {doctype: 4})
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
       '<html lang="en">',
@@ -110,7 +134,11 @@ test('document()', function (t) {
   );
 
   t.equal(
-    rehype().use(document, {css: 'delta.css'}).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {css: 'delta.css'})
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en">',
@@ -128,7 +156,11 @@ test('document()', function (t) {
   );
 
   t.equal(
-    rehype().use(document, {css: ['echo.css', 'foxtrot.css']}).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {css: ['echo.css', 'foxtrot.css']})
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en">',
@@ -147,7 +179,11 @@ test('document()', function (t) {
   );
 
   t.equal(
-    rehype().use(document, {js: 'golf.js'}).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {js: 'golf.js'})
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en">',
@@ -165,7 +201,11 @@ test('document()', function (t) {
   );
 
   t.equal(
-    rehype().use(document, {js: ['hotel.js', 'india.js']}).process('', {fragment: true}).toString(),
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {js: ['hotel.js', 'india.js']})
+      .processSync('')
+      .toString(),
     [
       '<!DOCTYPE html>',
       '<html lang="en">',
