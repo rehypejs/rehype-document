@@ -61,20 +61,34 @@ Yields the following on **stdout**(4):
 
 ### `rehype().use(document[, options])`
 
-###### `options`
+Wrap a document around HTML.
 
-*   `title` (`string`, default: name of file, if any)
-    — Text to use as title;
-*   `language` (`string`, default: `'en'`)
-    — Natural language of document (BCP 47);
-*   `responsive` (`boolean`, default: `true`)
-    — Whether to insert a `meta[viewport]`;
-*   `doctype` (`string`, default: `'5'`)
-    — [Doctype][doctype] to use;
-*   `css` (`string` or `Array.<string>`, default: `[]`)
-    — Stylesheets to include in `head`;
-*   `js` (`string` or `Array.<string>`, default: `[]`)
-    — Scripts to include at end of `body`.
+##### `options`
+
+###### `options.title`
+
+`string`, default: name of file, if any — Text to use as title.
+
+###### `options.language`
+
+`string`, default: `'en'` — Natural language of document (BCP 47).
+
+###### `options.responsive`
+
+`boolean`, default: `true` — Whether to insert a `meta[viewport]`.
+
+###### `options.doctype`
+
+`string`, default: `'5'` — [Doctype][doctype] to use.
+
+###### `options.css`
+
+`string` or `Array.<string>`, default: `[]` — Stylesheets to include in `head`.
+
+###### `options.js`
+
+`string` or `Array.<string>`, default: `[]` — Scripts to include at end of
+`body`.
 
 ## License
 
