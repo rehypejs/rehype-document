@@ -31,7 +31,7 @@ var mutate = require('remark-rehype');
 var stringify = require('rehype-stringify');
 var doc = require('rehype-document');
 
-var processor = unified()
+unified()
   .use(parse)
   .use(mutate)
   .use(doc, {title: 'Hi!'})
