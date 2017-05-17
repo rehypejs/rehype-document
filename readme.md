@@ -93,6 +93,13 @@ Wrap a document around a fragment.
 `string` or `Array.<string>`, default: `[]` — Scripts to include at end of
 `body`.
 
+## Related
+
+*   [`rehype-format`](https://github.com/wooorm/rehype-format)
+    — Format HTML
+*   [`rehype-minify`](https://github.com/wooorm/rehype-minify)
+    — Minify HTML
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]
