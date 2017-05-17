@@ -12,27 +12,7 @@ npm install rehype-document
 
 ## Usage
 
-```javascript
-var unified = require('unified');
-var createStream = require('unified-stream');
-var parse = require('remark-parse');
-var mutate = require('remark-rehype');
-var stringify = require('rehype-stringify');
-var document = require('rehype-document');
-
-var processor = unified()
-  .use(parse)
-  .use(mutate)
-  .use(document, {title: 'Hi!'})
-  .use(stringify);
-
-process.stdin
-  .pipe(createStream(processor))
-  .pipe(process.stdout)
-  .on('error', console.error);
-```
-
-When the following is given on **stdin**(4):
+Say `example.md` looks as follows:
 
 ```markdown
 ## Hello world!
@@ -40,9 +20,32 @@ When the following is given on **stdin**(4):
 This is **my** document.
 ```
 
-Yields the following on **stdout**(4):
+...and `example.js` like this:
+
+```javascript
+var vfile = require('to-vfile');
+var report = require('vfile-reporter');
+var unified = require('unified');
+var parse = require('remark-parse');
+var mutate = require('remark-rehype');
+var stringify = require('rehype-stringify');
+var doc = require('rehype-document');
+
+var processor = unified()
+  .use(parse)
+  .use(mutate)
+  .use(doc, {title: 'Hi!'})
+  .use(stringify)
+  .process(vfile.readSync('example.md'), function (err, file) {
+    console.error(report(err || file));
+    console.log(String(file));
+  });
+```
+
+Now, running `node example` yields:
 
 ```html
+example.md: no issues found
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +64,7 @@ Yields the following on **stdout**(4):
 
 ### `rehype().use(document[, options])`
 
-Wrap a document around HTML.
+Wrap a document around a fragment.
 
 ##### `options`
 
