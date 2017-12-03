@@ -95,9 +95,9 @@ Wrap a document around a fragment.
 
 ## Related
 
-*   [`rehype-format`](https://github.com/wooorm/rehype-format)
+*   [`rehype-format`](https://github.com/rehypejs/rehype-format)
     — Format HTML
-*   [`rehype-minify`](https://github.com/wooorm/rehype-minify)
+*   [`rehype-minify`](https://github.com/rehypejs/rehype-minify)
     — Minify HTML
 
 ## License
@@ -106,13 +106,13 @@ Wrap a document around a fragment.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/rehype-document.svg
+[travis-badge]: https://img.shields.io/travis/rehypejs/rehype-document.svg
 
-[travis]: https://travis-ci.org/wooorm/rehype-document
+[travis]: https://travis-ci.org/rehypejs/rehype-document
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/rehype-document.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/rehypejs/rehype-document.svg
 
-[codecov]: https://codecov.io/github/wooorm/rehype-document
+[codecov]: https://codecov.io/github/rehypejs/rehype-document
 
 [npm]: https://docs.npmjs.com/cli/install
 
@@ -120,6 +120,6 @@ Wrap a document around a fragment.
 
 [author]: http://wooorm.com
 
-[rehype]: https://github.com/wooorm/rehype
+[rehype]: https://github.com/rehypejs/rehype
 
 [doctype]: https://github.com/wooorm/doctype

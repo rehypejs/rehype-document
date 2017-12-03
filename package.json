@@ -11,8 +11,8 @@
     "wrap",
     "document"
   ],
-  "repository": "https://github.com/wooorm/rehype-document",
-  "bugs": "https://github.com/wooorm/rehype-document/issues",
+  "repository": "rehypejs/rehype-document",
+  "bugs": "https://github.com/rehypejs/rehype-document/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
