@@ -100,6 +100,13 @@ Wrap a document around a fragment.
 *   [`rehype-minify`](https://github.com/rehypejs/rehype-minify)
     — Minify HTML
 
+## Contribute
+
+See [`contribute.md` in `rehypejs/rehype`][contribute] for ways to get started.
+
+This organisation has a [Code of Conduct][coc].  By interacting with this
+repository, organisation, or community you agree to abide by its terms.
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]
@@ -123,3 +130,7 @@ Wrap a document around a fragment.
 [rehype]: https://github.com/rehypejs/rehype
 
 [doctype]: https://github.com/wooorm/doctype
+
+[contribute]: https://github.com/rehypejs/rehype/blob/master/contributing.md
+
+[coc]: https://github.com/rehypejs/rehype/blob/master/code-of-conduct.md
