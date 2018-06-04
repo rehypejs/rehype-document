@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-var test = require('tape');
-var rehype = require('rehype');
-var document = require('.');
+var test = require('tape')
+var rehype = require('rehype')
+var document = require('.')
 
-test('document()', function (t) {
+test('document()', function(t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
@@ -24,7 +24,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should work'
-  );
+  )
 
   t.equal(
     rehype()
@@ -46,7 +46,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should support `title`'
-  );
+  )
 
   t.equal(
     rehype()
@@ -69,7 +69,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should get `title` from `file.stem`'
-  );
+  )
 
   t.equal(
     rehype()
@@ -90,7 +90,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should support `language`'
-  );
+  )
 
   t.equal(
     rehype()
@@ -110,7 +110,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should support `responsive: false`'
-  );
+  )
 
   t.equal(
     rehype()
@@ -131,7 +131,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should support `doctype`'
-  );
+  )
 
   t.equal(
     rehype()
@@ -153,7 +153,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should support `css` as `string`'
-  );
+  )
 
   t.equal(
     rehype()
@@ -176,7 +176,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should support `css` as `Array.<string>`'
-  );
+  )
 
   t.equal(
     rehype()
@@ -198,7 +198,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should support `css` as `string`'
-  );
+  )
 
   t.equal(
     rehype()
@@ -221,7 +221,7 @@ test('document()', function (t) {
       ''
     ].join('\n'),
     'should support `css` as `Array.<string>`'
-  );
+  )
 
-  t.end();
-});
+  t.end()
+})

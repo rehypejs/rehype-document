@@ -1,65 +1,68 @@
-'use strict';
+'use strict'
 
-var u = require('unist-builder');
-var h = require('hastscript');
-var doctypes = require('doctype');
+var u = require('unist-builder')
+var h = require('hastscript')
+var doctypes = require('doctype')
 
-module.exports = attacher;
+module.exports = document
 
-function attacher(options) {
-  var settings = options || {};
-  var css = settings.css || [];
-  var js = settings.js || [];
+function document(options) {
+  var settings = options || {}
+  var css = settings.css || []
+  var js = settings.js || []
 
   if (typeof css === 'string') {
-    css = [css];
+    css = [css]
   }
 
   if (typeof js === 'string') {
-    js = [js];
+    js = [js]
   }
 
-  return transformer;
+  return transformer
 
   function transformer(tree, file) {
-    var title = settings.title || file.stem;
-    var body = tree.children.concat();
-    var head = [line(), h('meta', {charset: 'utf-8'})];
-    var length;
-    var index;
+    var title = settings.title || file.stem
+    var body = tree.children.concat()
+    var head = [line(), h('meta', {charset: 'utf-8'})]
+    var length
+    var index
 
     if (body.length !== 0) {
-      body.unshift(line());
+      body.unshift(line())
     }
 
     if (title) {
-      head.push(line(), h('title', [title]));
+      head.push(line(), h('title', [title]))
     }
 
     if (settings.responsive !== false) {
-      head.push(line(), h('meta', {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
-      }));
+      head.push(
+        line(),
+        h('meta', {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1'
+        })
+      )
     }
 
-    length = css.length;
-    index = -1;
+    length = css.length
+    index = -1
 
     while (++index < length) {
-      head.push(line(), h('link', {rel: 'stylesheet', href: css[index]}));
+      head.push(line(), h('link', {rel: 'stylesheet', href: css[index]}))
     }
 
-    head.push(line());
+    head.push(line())
 
-    length = js.length;
-    index = -1;
+    length = js.length
+    index = -1
 
     while (++index < length) {
-      body.push(line(), h('script', {src: js[index]}));
+      body.push(line(), h('script', {src: js[index]}))
     }
 
-    body.push(line());
+    body.push(line())
 
     return u('root', [
       u('doctype', {name: doctypes(settings.doctype || 5)}),
@@ -72,10 +75,10 @@ function attacher(options) {
         line()
       ]),
       line()
-    ]);
+    ])
   }
 }
 
 function line() {
-  return u('text', '\n');
+  return u('text', '\n')
 }
