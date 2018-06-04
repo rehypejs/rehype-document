@@ -2,7 +2,7 @@
 
 var test = require('tape');
 var rehype = require('rehype');
-var document = require('./index.js');
+var document = require('.');
 
 test('document()', function (t) {
   t.equal(
