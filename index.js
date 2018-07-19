@@ -8,8 +8,20 @@ module.exports = document
 
 function document(options) {
   var settings = options || {}
+  var meta = settings.meta || []
   var css = settings.css || []
   var js = settings.js || []
+
+  if (!('length' in meta)) {
+    meta = [meta]
+  }
+
+  if (settings.responsive !== false) {
+    meta.unshift({
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1'
+    })
+  }
 
   if (typeof css === 'string') {
     css = [css]
@@ -36,14 +48,11 @@ function document(options) {
       head.push(line(), h('title', [title]))
     }
 
-    if (settings.responsive !== false) {
-      head.push(
-        line(),
-        h('meta', {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1'
-        })
-      )
+    length = meta.length
+    index = -1
+
+    while (++index < length) {
+      head.push(line(), h('meta', meta[index]))
     }
 
     length = css.length

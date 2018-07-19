@@ -136,6 +136,80 @@ test('document()', function(t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
+      .use(document, {meta: {name: 'author', content: 'Jane'}})
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<meta name="author" content="Jane">',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `meta` as `object`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {
+        meta: [
+          {name: 'author', content: 'Jane'},
+          {property: 'og:type', content: 'article'}
+        ]
+      })
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<meta name="author" content="Jane">',
+      '<meta property="og:type" content="article">',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `meta` as `array`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {
+        responsive: false,
+        meta: {name: 'author', content: 'Jane'}
+      })
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="author" content="Jane">',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `meta` without responsive'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
       .use(document, {css: 'delta.css'})
       .processSync('')
       .toString(),

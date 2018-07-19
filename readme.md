@@ -88,6 +88,12 @@ Wrap a document around a fragment.
 
 `string` or `Array.<string>`, default: `[]` — Stylesheets to include in `head`.
 
+###### `options.meta`
+
+`Object` or `Array.<Object>`, default: `[]` — Metadata to include in `head`.
+Each object is passed as [`properties`][props] to [`hastscript`][h] with a `meta`
+element.
+
 ###### `options.js`
 
 `string` or `Array.<string>`, default: `[]` — Scripts to include at end of
@@ -135,3 +141,7 @@ repository, organisation, or community you agree to abide by its terms.
 [contributing]: https://github.com/rehypejs/rehype/blob/master/contributing.md
 
 [coc]: https://github.com/rehypejs/rehype/blob/master/code-of-conduct.md
+
+[props]: https://github.com/syntax-tree/hastscript#hselector-properties-children
+
+[h]: https://github.com/syntax-tree/hastscript
