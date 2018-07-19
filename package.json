@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "doctype": "^2.0.0",
-    "hastscript": "^3.0.0",
+    "hastscript": "^4.0.0",
     "unist-builder": "^1.0.1"
   },
   "devDependencies": {
