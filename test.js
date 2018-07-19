@@ -12,7 +12,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -33,7 +33,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -55,7 +55,7 @@ test('document()', function(t) {
       .processSync({path: '~/bravo.md', contents: 'charlie'})
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -78,7 +78,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en-GB">',
       '<head>',
       '<meta charset="utf-8">',
@@ -99,7 +99,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -119,7 +119,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
+      '<!doctype HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -140,7 +140,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -162,7 +162,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -185,7 +185,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',
@@ -207,7 +207,7 @@ test('document()', function(t) {
       .processSync('')
       .toString(),
     [
-      '<!DOCTYPE html>',
+      '<!doctype html>',
       '<html lang="en">',
       '<head>',
       '<meta charset="utf-8">',

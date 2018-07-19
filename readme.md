@@ -46,7 +46,7 @@ Now, running `node example` yields:
 
 ```html
 example.md: no issues found
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
