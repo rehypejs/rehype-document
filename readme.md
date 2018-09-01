@@ -94,6 +94,12 @@ Wrap a document around a fragment.
 Each object is passed as [`properties`][props] to [`hastscript`][h] with a `meta`
 element.
 
+###### `options.link`
+
+`Object` or `Array.<Object>`, default: `[]` — Link tags to include in `head`.
+Each object is passed as [`properties`][props] to [`hastscript`][h] with a `link`
+element.
+
 ###### `options.js`
 
 `string` or `Array.<string>`, default: `[]` — Scripts to include at end of
