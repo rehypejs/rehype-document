@@ -210,6 +210,61 @@ test('document()', function(t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
+      .use(document, {link: {rel: 'canonical', href: 'http://example.com'}})
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<link rel="canonical" href="http://example.com">',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `link` as `object`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {
+        link: [
+          {rel: 'canonical', href: 'http://example.com'},
+          {
+            rel: 'alternate',
+            href: '/feed.xml',
+            type: 'application/atom+xml',
+            title: 'Feed'
+          }
+        ]
+      })
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<link rel="canonical" href="http://example.com">',
+      '<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Feed">',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `link` as `array`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
       .use(document, {css: 'delta.css'})
       .processSync('')
       .toString(),
