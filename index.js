@@ -8,32 +8,16 @@ module.exports = document
 
 function document(options) {
   var settings = options || {}
-  var meta = settings.meta || []
-  var link = settings.link || []
-  var css = settings.css || []
-  var js = settings.js || []
-
-  if (!('length' in meta)) {
-    meta = [meta]
-  }
+  var meta = cast(settings.meta)
+  var link = cast(settings.link)
+  var css = cast(settings.css)
+  var js = cast(settings.js)
 
   if (settings.responsive !== false) {
     meta.unshift({
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
     })
-  }
-
-  if (!('length' in link)) {
-    link = [link]
-  }
-
-  if (typeof css === 'string') {
-    css = [css]
-  }
-
-  if (typeof js === 'string') {
-    js = [js]
   }
 
   return transformer
@@ -102,4 +86,12 @@ function document(options) {
 
 function line() {
   return u('text', '\n')
+}
+
+function cast(value) {
+  if (value === null || value === undefined) {
+    return []
+  }
+
+  return typeof value === 'string' || !('length' in value) ? [value] : value
 }
