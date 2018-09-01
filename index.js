@@ -9,6 +9,7 @@ module.exports = document
 function document(options) {
   var settings = options || {}
   var meta = settings.meta || []
+  var link = settings.link || []
   var css = settings.css || []
   var js = settings.js || []
 
@@ -21,6 +22,10 @@ function document(options) {
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
     })
+  }
+
+  if (!('length' in link)) {
+    link = [link]
   }
 
   if (typeof css === 'string') {
@@ -53,6 +58,13 @@ function document(options) {
 
     while (++index < length) {
       head.push(line(), h('meta', meta[index]))
+    }
+
+    length = link.length
+    index = -1
+
+    while (++index < length) {
+      head.push(line(), h('link', link[index]))
     }
 
     length = css.length
