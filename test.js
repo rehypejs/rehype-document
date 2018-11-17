@@ -210,7 +210,7 @@ test('document()', function(t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {link: {rel: 'canonical', href: 'http://example.com'}})
+      .use(document, {link: {rel: 'canonical', href: 'https://example.com'}})
       .processSync('')
       .toString(),
     [
@@ -219,7 +219,7 @@ test('document()', function(t) {
       '<head>',
       '<meta charset="utf-8">',
       '<meta name="viewport" content="width=device-width, initial-scale=1">',
-      '<link rel="canonical" href="http://example.com">',
+      '<link rel="canonical" href="https://example.com">',
       '</head>',
       '<body>',
       '</body>',
@@ -234,7 +234,7 @@ test('document()', function(t) {
       .data('settings', {fragment: true})
       .use(document, {
         link: [
-          {rel: 'canonical', href: 'http://example.com'},
+          {rel: 'canonical', href: 'https://example.com'},
           {
             rel: 'alternate',
             href: '/feed.xml',
@@ -251,7 +251,7 @@ test('document()', function(t) {
       '<head>',
       '<meta charset="utf-8">',
       '<meta name="viewport" content="width=device-width, initial-scale=1">',
-      '<link rel="canonical" href="http://example.com">',
+      '<link rel="canonical" href="https://example.com">',
       '<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Feed">',
       '</head>',
       '<body>',
