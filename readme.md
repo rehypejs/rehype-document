@@ -3,19 +3,22 @@
 [![Build][build-badge]][build]
 [![Coverage][coverage-badge]][coverage]
 [![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-Wrap a document around HTML with [**rehype**][rehype].
+[**rehype**][rehype] plugin to wrap a document around a fragment.
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install rehype-document
 ```
 
-## Usage
+## Use
 
 Say `example.md` looks as follows:
 
@@ -25,9 +28,9 @@ Say `example.md` looks as follows:
 This is **my** document.
 ```
 
-...and `example.js` like this:
+…and `example.js` like this:
 
-```javascript
+```js
 var vfile = require('to-vfile')
 var report = require('vfile-reporter')
 var unified = require('unified')
@@ -75,40 +78,41 @@ Wrap a document around a fragment.
 
 ###### `options.title`
 
-`string`, default: name of file, if any — Text to use as title.
+Text to use as title (`string`, default: name of file, if any).
 
 ###### `options.language`
 
-`string`, default: `'en'` — Natural language of document (BCP 47).
+Natural language of document (`string`, default: `'en'`).
+should be a [BCP 47][bcp47] language tag.
 
 ###### `options.responsive`
 
-`boolean`, default: `true` — Whether to insert a `meta[viewport]`.
+Whether to insert a `meta[viewport]` (`boolean`, default: `true`).
 
 ###### `options.doctype`
 
-`string`, default: `'5'` — [Doctype][doctype] to use.
+[Doctype][] to use (`string`, default: `'5'`).
 
 ###### `options.css`
 
-`string` or `Array.<string>`, default: `[]` — Stylesheets to include in `head`.
+Stylesheets to include in `head` (`string` or `Array.<string>`, default: `[]`).
 
 ###### `options.meta`
 
-`Object` or `Array.<Object>`, default: `[]` — Metadata to include in `head`.
-Each object is passed as [`properties`][props] to [`hastscript`][h] with a `meta`
-element.
+Metadata to include in `head` (`Object` or `Array.<Object>`, default: `[]`).
+Each object is passed as [`properties`][props] to [`hastscript`][h] with a
+`meta` element.
 
 ###### `options.link`
 
-`Object` or `Array.<Object>`, default: `[]` — Link tags to include in `head`.
-Each object is passed as [`properties`][props] to [`hastscript`][h] with a `link`
-element.
+Link tags to include in `head` (`Object` or `Array.<Object>`, default: `[]`).
+Each object is passed as [`properties`][props] to [`hastscript`][h] with a
+`link` element.
 
 ###### `options.js`
 
-`string` or `Array.<string>`, default: `[]` — Scripts to include at end of
-`body`.
+Scripts to include at end of `body` (`string` or `Array.<string>`, default:
+`[]`).
 
 ## Related
 
@@ -119,11 +123,13 @@ element.
 
 ## Contribute
 
-See [`contributing.md` in `rehypejs/rehype`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`rehypejs/.github`][health] for ways
+to get started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
@@ -143,11 +149,29 @@ repository, organisation, or community you agree to abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/rehype-document
 
+[size-badge]: https://img.shields.io/bundlephobia/minzip/rehype-document.svg
+
+[size]: https://bundlephobia.com/result?p=rehype-document
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[collective]: https://opencollective.com/unified
+
 [chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
 
 [chat]: https://spectrum.chat/unified/rehype
 
 [npm]: https://docs.npmjs.com/cli/install
+
+[health]: https://github.com/rehypejs/.github
+
+[contributing]: https://github.com/rehypejs/.github/blob/master/contributing.md
+
+[support]: https://github.com/rehypejs/.github/blob/master/support.md
+
+[coc]: https://github.com/rehypejs/.github/blob/master/code-of-conduct.md
 
 [license]: license
 
@@ -157,9 +181,7 @@ repository, organisation, or community you agree to abide by its terms.
 
 [doctype]: https://github.com/wooorm/doctype
 
-[contributing]: https://github.com/rehypejs/rehype/blob/master/contributing.md
-
-[coc]: https://github.com/rehypejs/rehype/blob/master/code-of-conduct.md
+[bcp47]: https://tools.ietf.org/html/bcp47
 
 [props]: https://github.com/syntax-tree/hastscript#hselector-properties-children
 
