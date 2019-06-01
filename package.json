@@ -1,9 +1,10 @@
 {
   "name": "rehype-document",
   "version": "3.0.0",
-  "description": "Wrap a document around the syntax tree",
+  "description": "rehype plugin to wrap a document around a fragment",
   "license": "MIT",
   "keywords": [
+    "unified",
     "rehype",
     "hast",
     "syntax",
