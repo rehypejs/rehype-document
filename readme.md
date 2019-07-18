@@ -114,6 +114,13 @@ Each object is passed as [`properties`][props] to [`hastscript`][h] with a
 Scripts to include at end of `body` (`string` or `Array.<string>`, default:
 `[]`).
 
+## Security
+
+Use of `rehype-document` can open you up to a [cross-site scripting (XSS)][xss]
+attack if you pass user provided content in options.
+
+Always be wary of user input and use [`rehype-sanitize`][sanitize].
+
 ## Related
 
 *   [`rehype-format`](https://github.com/rehypejs/rehype-format)
@@ -186,3 +193,7 @@ abide by its terms.
 [props]: https://github.com/syntax-tree/hastscript#hselector-properties-children
 
 [h]: https://github.com/syntax-tree/hastscript
+
+[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[sanitize]: https://github.com/rehypejs/rehype-sanitize
