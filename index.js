@@ -10,6 +10,7 @@ function document(options) {
   var settings = options || {}
   var meta = cast(settings.meta)
   var link = cast(settings.link)
+  var styles = cast(settings.style)
   var css = cast(settings.css)
   var js = cast(settings.js)
 
@@ -49,6 +50,14 @@ function document(options) {
 
     while (++index < length) {
       head.push(line(), h('link', link[index]))
+    }
+
+    // Inject style tags before linked css
+    length = styles.length
+    index = -1
+
+    while (++index < length) {
+      head.push(line(), h('style', styles[index]))
     }
 
     length = css.length
