@@ -93,9 +93,15 @@ Whether to insert a `meta[viewport]` (`boolean`, default: `true`).
 
 [Doctype][] to use (`string`, default: `'5'`).
 
+###### options.style
+
+CSS to include in `head` in `<style>` elements (`string` or `Array.<string>`,
+default: `[]`).
+
 ###### `options.css`
 
-Stylesheets to include in `head` (`string` or `Array.<string>`, default: `[]`).
+Links to stylesheets to include in `head` (`string` or `Array.<string>`,
+default: `[]`).
 
 ###### `options.meta`
 

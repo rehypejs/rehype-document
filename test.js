@@ -265,6 +265,51 @@ test('document()', function(t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
+      .use(document, {style: 'body {color: blue}'})
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<style>body {color: blue}</style>',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `style` as `string`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {style: ['body {color: blue}', 'a {color: red}']})
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<style>body {color: blue}</style>',
+      '<style>a {color: red}</style>',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `style` as `array`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
       .use(document, {css: 'delta.css'})
       .processSync('')
       .toString(),
@@ -310,6 +355,29 @@ test('document()', function(t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
+      .use(document, {css: 'delta.css', style: 'a {color: red}'})
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<style>a {color: red}</style>',
+      '<link rel="stylesheet" href="delta.css">',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should inject `style` tags before `css`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
       .use(document, {js: 'golf.js'})
       .processSync('')
       .toString(),
@@ -326,7 +394,7 @@ test('document()', function(t) {
       '</html>',
       ''
     ].join('\n'),
-    'should support `css` as `string`'
+    'should support `js` as `string`'
   )
 
   t.equal(
@@ -349,7 +417,7 @@ test('document()', function(t) {
       '</html>',
       ''
     ].join('\n'),
-    'should support `css` as `Array.<string>`'
+    'should support `js` as `Array.<string>`'
   )
 
   t.end()
