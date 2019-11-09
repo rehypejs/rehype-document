@@ -95,11 +95,13 @@ Whether to insert a `meta[viewport]` (`boolean`, default: `true`).
 
 ###### options.style
 
-CSS to include in `head` in `<style>` elements (`string` or `Array.<string>`, default: `[]`).
+CSS to include in `head` in `<style>` elements (`string` or `Array.<string>`,
+default: `[]`).
 
 ###### `options.css`
 
-Links to stylesheets to include in `head` (`string` or `Array.<string>`, default: `[]`).
+Links to stylesheets to include in `head` (`string` or `Array.<string>`,
+default: `[]`).
 
 ###### `options.meta`
 
