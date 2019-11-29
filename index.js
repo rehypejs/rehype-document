@@ -12,6 +12,7 @@ function document(options) {
   var link = cast(settings.link)
   var styles = cast(settings.style)
   var css = cast(settings.css)
+  var scripts = cast(settings.script)
   var js = cast(settings.js)
 
   if (settings.responsive !== false) {
@@ -52,7 +53,7 @@ function document(options) {
       head.push(line(), h('link', link[index]))
     }
 
-    // Inject style tags before linked css
+    // Inject style tags before linked CSS
     length = styles.length
     index = -1
 
@@ -68,6 +69,14 @@ function document(options) {
     }
 
     head.push(line())
+
+    // Inject script tags before linked JS
+    length = scripts.length
+    index = -1
+
+    while (++index < length) {
+      body.push(line(), h('script', scripts[index]))
+    }
 
     length = js.length
     index = -1

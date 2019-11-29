@@ -420,5 +420,75 @@ test('document()', function(t) {
     'should support `js` as `Array.<string>`'
   )
 
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {script: 'console.log("Hello");'})
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '</head>',
+      '<body>',
+      '<script>console.log("Hello");</script>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `script` as `string`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {
+        script: ['console.log("Hello");', 'console.log("World");']
+      })
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '</head>',
+      '<body>',
+      '<script>console.log("Hello");</script>',
+      '<script>console.log("World");</script>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `script` as `Array.<string>`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document, {js: 'world.js', script: 'console.log("Hello");'})
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '</head>',
+      '<body>',
+      '<script>console.log("Hello");</script>',
+      '<script src="world.js"></script>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should inject `script` tags before `js`'
+  )
+
   t.end()
 })

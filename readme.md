@@ -93,7 +93,7 @@ Whether to insert a `meta[viewport]` (`boolean`, default: `true`).
 
 [Doctype][] to use (`string`, default: `'5'`).
 
-###### options.style
+###### `options.style`
 
 CSS to include in `head` in `<style>` elements (`string` or `Array.<string>`,
 default: `[]`).
@@ -115,10 +115,15 @@ Link tags to include in `head` (`Object` or `Array.<Object>`, default: `[]`).
 Each object is passed as [`properties`][props] to [`hastscript`][h] with a
 `link` element.
 
+###### `options.script`
+
+Inline scripts to include at end of `body` (`string` or `Array.<string>`,
+default: `[]`).
+
 ###### `options.js`
 
-Scripts to include at end of `body` (`string` or `Array.<string>`, default:
-`[]`).
+External scripts to include at end of `body` (`string` or `Array.<string>`,
+default: `[]`).
 
 ## Security
 
