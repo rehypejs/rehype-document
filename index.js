@@ -26,13 +26,13 @@ function document(options) {
 
   function transformer(tree, file) {
     var title = settings.title || file.stem
-    var body = tree.children.concat()
+    var contents = tree.type === 'root' ? tree.children.concat() : [tree]
     var head = [line(), h('meta', {charset: 'utf-8'})]
     var length
     var index
 
-    if (body.length !== 0) {
-      body.unshift(line())
+    if (contents.length !== 0) {
+      contents.unshift(line())
     }
 
     if (title) {
@@ -75,17 +75,17 @@ function document(options) {
     index = -1
 
     while (++index < length) {
-      body.push(line(), h('script', scripts[index]))
+      contents.push(line(), h('script', scripts[index]))
     }
 
     length = js.length
     index = -1
 
     while (++index < length) {
-      body.push(line(), h('script', {src: js[index]}))
+      contents.push(line(), h('script', {src: js[index]}))
     }
 
-    body.push(line())
+    contents.push(line())
 
     return u('root', [
       u('doctype', {name: doctypes(settings.doctype || 5)}),
@@ -94,7 +94,7 @@ function document(options) {
         line(),
         h('head', head),
         line(),
-        h('body', body),
+        h('body', contents),
         line()
       ]),
       line()

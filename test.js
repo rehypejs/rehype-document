@@ -490,5 +490,59 @@ test('document()', function(t) {
     'should inject `script` tags before `js`'
   )
 
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
+      .use(document)
+      .processSync('<a>a</a><b>b</b>')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '</head>',
+      '<body>',
+      '<a>a</a><b>b</b>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should wrap a root'
+  )
+
+  t.equal(
+    rehype()
+      .use(function() {
+        this.Parser = parser
+        function parser() {
+          return {
+            type: 'element',
+            tagName: 'a',
+            properties: {id: 'a'},
+            children: [{type: 'text', value: 'a'}]
+          }
+        }
+      })
+      .use(document)
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '</head>',
+      '<body>',
+      '<a id="a">a</a>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should wrap an element'
+  )
+
   t.end()
 })
