@@ -1,6 +1,6 @@
 {
   "name": "rehype-document",
-  "version": "3.2.1",
+  "version": "4.0.0",
   "description": "rehype plugin to wrap a document around a fragment",
   "license": "MIT",
   "keywords": [
