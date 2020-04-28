@@ -4,7 +4,7 @@ var test = require('tape')
 var rehype = require('rehype')
 var document = require('.')
 
-test('document()', function(t) {
+test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
@@ -514,7 +514,7 @@ test('document()', function(t) {
 
   t.equal(
     rehype()
-      .use(function() {
+      .use(function () {
         this.Parser = parser
         function parser() {
           return {
