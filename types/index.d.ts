@@ -25,6 +25,13 @@ declare namespace document {
     language?: string
 
     /**
+     * Whether to insert a `meta[viewport]`.
+     *
+     * @default true
+     */
+    responsive?: boolean
+
+    /**
      * [Doctype](https://github.com/wooorm/doctype) to use.
      *
      * @default '5'
