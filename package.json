@@ -31,12 +31,12 @@
   ],
   "types": "types/index.d.ts",
   "dependencies": {
-    "@types/hast": "^2.0.0",
     "doctype": "^2.0.0",
     "hastscript": "^5.0.0",
     "unist-builder": "^2.0.0"
   },
   "devDependencies": {
+    "@types/hast": "^2.0.0",
     "browserify": "^16.0.0",
     "dtslint": "^3.0.0",
     "nyc": "^15.0.0",
