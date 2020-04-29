@@ -26,17 +26,21 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
   "files": [
-    "index.js"
+    "index.js",
+    "types/index.d.ts"
   ],
+  "types": "types/index.d.ts",
   "dependencies": {
+    "@types/hast": "^2.3.0",
     "doctype": "^2.0.0",
     "hastscript": "^5.0.0",
     "unist-builder": "^2.0.0"
   },
   "devDependencies": {
     "browserify": "^16.0.0",
+    "dtslint": "^3.4.2",
     "nyc": "^15.0.0",
-    "prettier": "^1.0.0",
+    "prettier": "^2.0.5",
     "rehype": "^9.0.0",
     "remark-cli": "^7.0.0",
     "remark-preset-wooorm": "^6.0.0",
@@ -45,13 +49,14 @@
     "xo": "^0.28.0"
   },
   "scripts": {
-    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
+    "format": "remark . -qfo && prettier --write . && xo --fix",
     "build-bundle": "browserify index.js -s rehypeDocument > rehype-document.js",
     "build-mangle": "browserify index.js -s rehypeDocument -p tinyify > rehype-document.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test.js",
-    "test": "npm run format && npm run build && npm run test-coverage"
+    "test-types": "dtslint types",
+    "test": "npm run format && npm run build && npm run test-coverage && npm run test-types"
   },
   "nyc": {
     "check-coverage": true,
@@ -71,6 +76,7 @@
     "prettier": true,
     "esnext": false,
     "ignores": [
+      "**/*.ts",
       "rehype-document.js"
     ]
   },
