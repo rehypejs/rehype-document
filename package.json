@@ -33,12 +33,12 @@
   "dependencies": {
     "@types/hast": "^2.3.0",
     "doctype": "^2.0.0",
-    "dtslint": "^3.4.2",
     "hastscript": "^5.0.0",
     "unist-builder": "^2.0.0"
   },
   "devDependencies": {
     "browserify": "^16.0.0",
+    "dtslint": "^3.4.2",
     "nyc": "^15.0.0",
     "prettier": "^2.0.5",
     "rehype": "^9.0.0",
