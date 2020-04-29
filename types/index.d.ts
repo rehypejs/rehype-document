@@ -1,5 +1,6 @@
 // Minimum TypeScript Version: 3.2
 import {Plugin} from 'unified'
+import {Properties} from 'hast'
 
 /**
  * Wrap a document around a fragment.
@@ -62,7 +63,7 @@ declare namespace document {
      *
      * @default []
      */
-    meta?: Record<string, any> | Array<Record<string, any>>
+    meta?: Properties | Properties[]
 
     /**
      * Link tags to include in `head`.
@@ -73,7 +74,7 @@ declare namespace document {
      *
      * @default []
      */
-    link?: Record<string, any> | Array<Record<string, any>>
+    link?: Properties | Properties[]
 
     /**
      * Inline scripts to include at end of `body`.
