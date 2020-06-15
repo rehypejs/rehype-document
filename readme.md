@@ -134,6 +134,8 @@ Always be wary of user input and use [`rehype-sanitize`][sanitize].
 
 ## Related
 
+*   [`rehype-meta`](https://github.com/rehypejs/rehype-meta)
+    — Add metadata to the head of a document
 *   [`rehype-format`](https://github.com/rehypejs/rehype-format)
     — Format HTML
 *   [`rehype-minify`](https://github.com/rehypejs/rehype-minify)
