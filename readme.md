@@ -18,10 +18,6 @@
 npm install rehype-document
 ```
 
-This package comes with types.
-If you’re using TypeScript, make sure to also install
-[`@types/hast`][ts-hast].
-
 ## Use
 
 Say `example.md` looks as follows:
@@ -212,5 +208,3 @@ abide by its terms.
 [xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
 
 [sanitize]: https://github.com/rehypejs/rehype-sanitize
-
-[ts-hast]: https://www.npmjs.com/package/@types/hast
