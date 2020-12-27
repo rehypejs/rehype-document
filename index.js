@@ -31,7 +31,7 @@ function document(options) {
     var length
     var index
 
-    if (contents.length !== 0) {
+    if (contents.length > 0) {
       contents.unshift(line())
     }
 
