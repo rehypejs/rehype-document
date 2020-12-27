@@ -1,8 +1,7 @@
 'use strict'
 
-var u = require('unist-builder')
-var h = require('hastscript')
 var doctypes = require('doctype')
+var h = require('hastscript')
 
 module.exports = document
 
@@ -27,89 +26,82 @@ function document(options) {
   function transformer(tree, file) {
     var title = settings.title || file.stem
     var contents = tree.type === 'root' ? tree.children.concat() : [tree]
-    var head = [line(), h('meta', {charset: 'utf-8'})]
-    var length
-    var index
+    var head = [{type: 'text', value: '\n'}, h('meta', {charset: 'utf-8'})]
+    var index = -1
 
     if (contents.length > 0) {
-      contents.unshift(line())
+      contents.unshift({type: 'text', value: '\n'})
     }
 
     if (title) {
-      head.push(line(), h('title', [title]))
+      head.push({type: 'text', value: '\n'}, h('title', [title]))
     }
 
-    length = meta.length
-    index = -1
-
-    while (++index < length) {
-      head.push(line(), h('meta', meta[index]))
+    while (++index < meta.length) {
+      head.push({type: 'text', value: '\n'}, h('meta', meta[index]))
     }
 
-    length = link.length
     index = -1
 
-    while (++index < length) {
-      head.push(line(), h('link', link[index]))
+    while (++index < link.length) {
+      head.push({type: 'text', value: '\n'}, h('link', link[index]))
     }
 
     // Inject style tags before linked CSS
-    length = styles.length
     index = -1
 
-    while (++index < length) {
-      head.push(line(), h('style', styles[index]))
+    while (++index < styles.length) {
+      head.push({type: 'text', value: '\n'}, h('style', styles[index]))
     }
 
-    length = css.length
     index = -1
 
-    while (++index < length) {
-      head.push(line(), h('link', {rel: 'stylesheet', href: css[index]}))
+    while (++index < css.length) {
+      head.push(
+        {type: 'text', value: '\n'},
+        h('link', {rel: 'stylesheet', href: css[index]})
+      )
     }
 
-    head.push(line())
+    head.push({type: 'text', value: '\n'})
 
     // Inject script tags before linked JS
-    length = scripts.length
     index = -1
 
-    while (++index < length) {
-      contents.push(line(), h('script', scripts[index]))
+    while (++index < scripts.length) {
+      contents.push({type: 'text', value: '\n'}, h('script', scripts[index]))
     }
 
-    length = js.length
     index = -1
 
-    while (++index < length) {
-      contents.push(line(), h('script', {src: js[index]}))
+    while (++index < js.length) {
+      contents.push({type: 'text', value: '\n'}, h('script', {src: js[index]}))
     }
 
-    contents.push(line())
+    contents.push({type: 'text', value: '\n'})
 
-    return u('root', [
-      u('doctype', {name: doctypes(settings.doctype || 5)}),
-      line(),
-      h('html', {lang: settings.language || 'en'}, [
-        line(),
-        h('head', head),
-        line(),
-        h('body', contents),
-        line()
-      ]),
-      line()
-    ])
+    return {
+      type: 'root',
+      children: [
+        {type: 'doctype', name: doctypes(settings.doctype || 5)},
+        {type: 'text', value: '\n'},
+        h('html', {lang: settings.language || 'en'}, [
+          {type: 'text', value: '\n'},
+          h('head', head),
+          {type: 'text', value: '\n'},
+          h('body', contents),
+          {type: 'text', value: '\n'}
+        ]),
+        {type: 'text', value: '\n'}
+      ]
+    }
   }
-}
-
-function line() {
-  return u('text', '\n')
 }
 
 function cast(value) {
-  if (value === null || value === undefined) {
-    return []
-  }
-
-  return typeof value === 'string' || !('length' in value) ? [value] : value
+  return value === null || value === undefined
+    ? []
+    : typeof value === 'string' || !('length' in value)
+    ? [value]
+    : value
 }
