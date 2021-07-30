@@ -494,15 +494,16 @@ test('rehypeDocument()', (t) => {
   t.equal(
     rehype()
       .use(function () {
-        this.Parser = parser
-        function parser() {
-          return {
-            type: 'element',
-            tagName: 'a',
-            properties: {id: 'a'},
-            children: [{type: 'text', value: 'a'}]
+        Object.assign(this, {
+          Parser: () => {
+            return {
+              type: 'element',
+              tagName: 'a',
+              properties: {id: 'a'},
+              children: [{type: 'text', value: 'a'}]
+            }
           }
-        }
+        })
       })
       .use(rehypeDocument)
       .processSync('')
