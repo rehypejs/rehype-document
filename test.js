@@ -1,8 +1,6 @@
-'use strict'
-
-var test = require('tape')
-var rehype = require('rehype')
-var document = require('.')
+import test from 'tape'
+import rehype from 'rehype'
+import document from './index.js'
 
 test('document()', function (t) {
   t.equal(

@@ -1,11 +1,7 @@
-'use strict'
+import doctypes from 'doctype'
+import h from 'hastscript'
 
-var doctypes = require('doctype')
-var h = require('hastscript')
-
-module.exports = document
-
-function document(options) {
+export default function document(options) {
   var settings = options || {}
   var meta = cast(settings.meta)
   var link = cast(settings.link)

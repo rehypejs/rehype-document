@@ -25,11 +25,12 @@
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
+  "sideEffects": false,
+  "type": "module",
+  "main": "index.js",
   "files": [
-    "index.js",
-    "types/index.d.ts"
+    "index.js"
   ],
-  "types": "types/index.d.ts",
   "dependencies": {
     "@types/hast": "^2.0.0",
     "doctype": "^2.0.0",
@@ -63,6 +64,10 @@
   "xo": {
     "prettier": true,
     "esnext": false,
+    "rules": {
+      "no-var": "off",
+      "prefer-arrow-callback": "off"
+    },
     "ignores": [
       "**/*.ts"
     ]
