@@ -113,27 +113,6 @@ test('rehypeDocument()', (t) => {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(rehypeDocument, {doctype: 4})
-      .processSync('')
-      .toString(),
-    [
-      '<!doctype HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
-      '<html lang="en">',
-      '<head>',
-      '<meta charset="utf-8">',
-      '<meta name="viewport" content="width=device-width, initial-scale=1">',
-      '</head>',
-      '<body>',
-      '</body>',
-      '</html>',
-      ''
-    ].join('\n'),
-    'should support `doctype`'
-  )
-
-  t.equal(
-    rehype()
-      .data('settings', {fragment: true})
       .use(rehypeDocument, {meta: {name: 'author', content: 'Jane'}})
       .processSync('')
       .toString(),

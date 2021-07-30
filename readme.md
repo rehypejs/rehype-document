@@ -89,10 +89,6 @@ should be a [BCP 47][bcp47] language tag.
 
 Whether to insert a `meta[viewport]` (`boolean`, default: `true`).
 
-###### `options.doctype`
-
-[Doctype][] to use (`string`, default: `'5'`).
-
 ###### `options.style`
 
 CSS to include in `head` in `<style>` elements (`string` or `Array.<string>`,
@@ -198,8 +194,6 @@ abide by its terms.
 [author]: https://wooorm.com
 
 [rehype]: https://github.com/rehypejs/rehype
-
-[doctype]: https://github.com/wooorm/doctype
 
 [bcp47]: https://tools.ietf.org/html/bcp47
 

@@ -33,7 +33,6 @@
   ],
   "dependencies": {
     "@types/hast": "^2.0.0",
-    "doctype": "^3.0.0",
     "hastscript": "^7.0.0"
   },
   "devDependencies": {

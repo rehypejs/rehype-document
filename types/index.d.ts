@@ -33,13 +33,6 @@ declare namespace document {
     responsive?: boolean
 
     /**
-     * [Doctype](https://github.com/wooorm/doctype) to use.
-     *
-     * @default '5'
-     */
-    doctype?: string
-
-    /**
      * CSS to include in `head` in `<style>` elements.
      *
      * @default []
