@@ -1,12 +1,12 @@
 import test from 'tape'
 import rehype from 'rehype'
-import document from './index.js'
+import rehypeDocument from './index.js'
 
-test('document()', function (t) {
+test('rehypeDocument()', (t) => {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document)
+      .use(rehypeDocument)
       .processSync('')
       .toString(),
     [
@@ -27,7 +27,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {title: 'alpha'})
+      .use(rehypeDocument, {title: 'alpha'})
       .processSync('')
       .toString(),
     [
@@ -49,7 +49,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document)
+      .use(rehypeDocument)
       .processSync({path: '~/bravo.md', contents: 'charlie'})
       .toString(),
     [
@@ -72,7 +72,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {language: 'en-GB'})
+      .use(rehypeDocument, {language: 'en-GB'})
       .processSync('')
       .toString(),
     [
@@ -93,7 +93,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {responsive: false})
+      .use(rehypeDocument, {responsive: false})
       .processSync('')
       .toString(),
     [
@@ -113,7 +113,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {doctype: 4})
+      .use(rehypeDocument, {doctype: 4})
       .processSync('')
       .toString(),
     [
@@ -134,7 +134,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {meta: {name: 'author', content: 'Jane'}})
+      .use(rehypeDocument, {meta: {name: 'author', content: 'Jane'}})
       .processSync('')
       .toString(),
     [
@@ -156,7 +156,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {
+      .use(rehypeDocument, {
         meta: [
           {name: 'author', content: 'Jane'},
           {property: 'og:type', content: 'article'}
@@ -184,7 +184,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {
+      .use(rehypeDocument, {
         responsive: false,
         meta: {name: 'author', content: 'Jane'}
       })
@@ -208,7 +208,9 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {link: {rel: 'canonical', href: 'https://example.com'}})
+      .use(rehypeDocument, {
+        link: {rel: 'canonical', href: 'https://example.com'}
+      })
       .processSync('')
       .toString(),
     [
@@ -230,7 +232,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {
+      .use(rehypeDocument, {
         link: [
           {rel: 'canonical', href: 'https://example.com'},
           {
@@ -263,7 +265,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {style: 'body {color: blue}'})
+      .use(rehypeDocument, {style: 'body {color: blue}'})
       .processSync('')
       .toString(),
     [
@@ -285,7 +287,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {style: ['body {color: blue}', 'a {color: red}']})
+      .use(rehypeDocument, {style: ['body {color: blue}', 'a {color: red}']})
       .processSync('')
       .toString(),
     [
@@ -308,7 +310,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {css: 'delta.css'})
+      .use(rehypeDocument, {css: 'delta.css'})
       .processSync('')
       .toString(),
     [
@@ -330,7 +332,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {css: ['echo.css', 'foxtrot.css']})
+      .use(rehypeDocument, {css: ['echo.css', 'foxtrot.css']})
       .processSync('')
       .toString(),
     [
@@ -353,7 +355,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {css: 'delta.css', style: 'a {color: red}'})
+      .use(rehypeDocument, {css: 'delta.css', style: 'a {color: red}'})
       .processSync('')
       .toString(),
     [
@@ -376,7 +378,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {js: 'golf.js'})
+      .use(rehypeDocument, {js: 'golf.js'})
       .processSync('')
       .toString(),
     [
@@ -398,7 +400,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {js: ['hotel.js', 'india.js']})
+      .use(rehypeDocument, {js: ['hotel.js', 'india.js']})
       .processSync('')
       .toString(),
     [
@@ -421,7 +423,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {script: 'console.log("Hello");'})
+      .use(rehypeDocument, {script: 'console.log("Hello");'})
       .processSync('')
       .toString(),
     [
@@ -443,7 +445,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {
+      .use(rehypeDocument, {
         script: ['console.log("Hello");', 'console.log("World");']
       })
       .processSync('')
@@ -468,7 +470,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document, {js: 'world.js', script: 'console.log("Hello");'})
+      .use(rehypeDocument, {js: 'world.js', script: 'console.log("Hello");'})
       .processSync('')
       .toString(),
     [
@@ -491,7 +493,7 @@ test('document()', function (t) {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
-      .use(document)
+      .use(rehypeDocument)
       .processSync('<a>a</a><b>b</b>')
       .toString(),
     [
@@ -523,7 +525,7 @@ test('document()', function (t) {
           }
         }
       })
-      .use(document)
+      .use(rehypeDocument)
       .processSync('')
       .toString(),
     [

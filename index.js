@@ -1,14 +1,14 @@
 import doctypes from 'doctype'
 import h from 'hastscript'
 
-export default function document(options) {
-  var settings = options || {}
-  var meta = cast(settings.meta)
-  var link = cast(settings.link)
-  var styles = cast(settings.style)
-  var css = cast(settings.css)
-  var scripts = cast(settings.script)
-  var js = cast(settings.js)
+export default function rehypeDocument(options) {
+  const settings = options || {}
+  const meta = cast(settings.meta)
+  const link = cast(settings.link)
+  const styles = cast(settings.style)
+  const css = cast(settings.css)
+  const scripts = cast(settings.script)
+  const js = cast(settings.js)
 
   if (settings.responsive !== false) {
     meta.unshift({
@@ -20,10 +20,10 @@ export default function document(options) {
   return transformer
 
   function transformer(tree, file) {
-    var title = settings.title || file.stem
-    var contents = tree.type === 'root' ? tree.children.concat() : [tree]
-    var head = [{type: 'text', value: '\n'}, h('meta', {charset: 'utf-8'})]
-    var index = -1
+    const title = settings.title || file.stem
+    const contents = tree.type === 'root' ? tree.children.concat() : [tree]
+    const head = [{type: 'text', value: '\n'}, h('meta', {charset: 'utf-8'})]
+    let index = -1
 
     if (contents.length > 0) {
       contents.unshift({type: 'text', value: '\n'})
