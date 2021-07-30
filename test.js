@@ -495,14 +495,12 @@ test('rehypeDocument()', (t) => {
     rehype()
       .use(function () {
         Object.assign(this, {
-          Parser: () => {
-            return {
-              type: 'element',
-              tagName: 'a',
-              properties: {id: 'a'},
-              children: [{type: 'text', value: 'a'}]
-            }
-          }
+          Parser: () => ({
+            type: 'element',
+            tagName: 'a',
+            properties: {id: 'a'},
+            children: [{type: 'text', value: 'a'}]
+          })
         })
       })
       .use(rehypeDocument)
