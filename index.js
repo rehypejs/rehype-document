@@ -1,5 +1,5 @@
-import doctypes from 'doctype'
-import h from 'hastscript'
+import {doctype} from 'doctype'
+import {h} from 'hastscript'
 
 export default function rehypeDocument(options) {
   const settings = options || {}
@@ -79,7 +79,7 @@ export default function rehypeDocument(options) {
     return {
       type: 'root',
       children: [
-        {type: 'doctype', name: doctypes(settings.doctype || 5)},
+        {type: 'doctype', name: doctype(settings.doctype || 5)},
         {type: 'text', value: '\n'},
         h('html', {lang: settings.language || 'en'}, [
           {type: 'text', value: '\n'},

@@ -1,5 +1,5 @@
 import test from 'tape'
-import rehype from 'rehype'
+import {rehype} from 'rehype'
 import rehypeDocument from './index.js'
 
 test('rehypeDocument()', (t) => {
@@ -50,7 +50,7 @@ test('rehypeDocument()', (t) => {
     rehype()
       .data('settings', {fragment: true})
       .use(rehypeDocument)
-      .processSync({path: '~/bravo.md', contents: 'charlie'})
+      .processSync({path: '~/bravo.md', value: 'charlie'})
       .toString(),
     [
       '<!doctype html>',
