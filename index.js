@@ -13,27 +13,27 @@
  *   Should be a [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
  * @property {boolean|undefined} [responsive=true]
  *   Whether to insert a `meta[viewport]`.
- * @property {string|string[]|undefined} [style=[]]
+ * @property {string|Array<string>|undefined} [style=[]]
  *   CSS to include in `head` in `<style>` elements.
- * @property {string|string[]|undefined} [css=[]]
+ * @property {string|Array<string>|undefined} [css=[]]
  *   Links to stylesheets to include in `head`.
- * @property {Properties|Properties[]|undefined} [meta=[]]
+ * @property {Properties|Array<Properties>|undefined} [meta=[]]
  *   Metadata to include in `head`.
  *
  *   Each object is passed as
  *   [`properties`](https://github.com/syntax-tree/hastscript#hselector-properties-children)
  *   to [`hastscript`](https://github.com/syntax-tree/hastscript) with a
  *   `meta` element.
- * @property {Properties|Properties[]|undefined} [link=[]]
+ * @property {Properties|Array<Properties>|undefined} [link=[]]
  *   Link tags to include in `head`.
  *
  *   Each object is passed as
  *   [`properties`](https://github.com/syntax-tree/hastscript#hselector-properties-children)
  *   to [`hastscript`](https://github.com/syntax-tree/hastscript) with a `link`
  *   element.
- * @property {string|string[]|undefined} [script=[]]
+ * @property {string|Array<string>|undefined} [script=[]]
  *   Inline scripts to include at end of `body` in `<script>`s.
- * @property {string|string[]|undefined} [js=[]]
+ * @property {string|Array<string>|undefined} [js=[]]
  *   External scripts to include at end of `body` in `script[src]`s.
  */
 
@@ -61,9 +61,9 @@ export default function rehypeDocument(options = {}) {
 
   return (tree, file) => {
     const title = options.title || file.stem
-    /** @type {Node[]} */
+    /** @type {Array<Node>} */
     const contents = tree.type === 'root' ? tree.children.concat() : [tree]
-    /** @type {Node[]} */
+    /** @type {Array<Node>} */
     const head = [{type: 'text', value: '\n'}, h('meta', {charset: 'utf-8'})]
     let index = -1
 
@@ -142,8 +142,8 @@ export default function rehypeDocument(options = {}) {
 
 /**
  * @template Thing
- * @param {Thing|Thing[]|null|undefined} value
- * @returns {Thing[]}
+ * @param {Thing|Array<Thing>|null|undefined} value
+ * @returns {Array<Thing>}
  */
 function cast(value) {
   return value === null || value === undefined

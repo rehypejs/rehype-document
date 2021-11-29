@@ -328,7 +328,7 @@ test('rehypeDocument()', (t) => {
       '</html>',
       ''
     ].join('\n'),
-    'should support `css` as `Array.<string>`'
+    'should support `css` as `Array<string>`'
   )
 
   t.equal(
@@ -396,7 +396,7 @@ test('rehypeDocument()', (t) => {
       '</html>',
       ''
     ].join('\n'),
-    'should support `js` as `Array.<string>`'
+    'should support `js` as `Array<string>`'
   )
 
   t.equal(
@@ -443,7 +443,7 @@ test('rehypeDocument()', (t) => {
       '</html>',
       ''
     ].join('\n'),
-    'should support `script` as `Array.<string>`'
+    'should support `script` as `Array<string>`'
   )
 
   t.equal(

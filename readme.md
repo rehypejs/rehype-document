@@ -100,34 +100,34 @@ Whether to insert a `meta[viewport]` (`boolean`, default: `true`).
 
 ###### `options.style`
 
-CSS to include in `head` in `<style>` elements (`string` or `Array.<string>`,
+CSS to include in `head` in `<style>` elements (`string` or `Array<string>`,
 default: `[]`).
 
 ###### `options.css`
 
-Links to stylesheets to include in `head` (`string` or `Array.<string>`,
+Links to stylesheets to include in `head` (`string` or `Array<string>`,
 default: `[]`).
 
 ###### `options.meta`
 
-Metadata to include in `head` (`Object` or `Array.<Object>`, default: `[]`).
+Metadata to include in `head` (`Object` or `Array<Object>`, default: `[]`).
 Each object is passed as [`properties`][props] to [`hastscript`][h] with a
 `meta` element.
 
 ###### `options.link`
 
-Link tags to include in `head` (`Object` or `Array.<Object>`, default: `[]`).
+Link tags to include in `head` (`Object` or `Array<Object>`, default: `[]`).
 Each object is passed as [`properties`][props] to [`hastscript`][h] with a
 `link` element.
 
 ###### `options.script`
 
-Inline scripts to include at end of `body` (`string` or `Array.<string>`,
+Inline scripts to include at end of `body` (`string` or `Array<string>`,
 default: `[]`).
 
 ###### `options.js`
 
-External scripts to include at end of `body` (`string` or `Array.<string>`,
+External scripts to include at end of `body` (`string` or `Array<string>`,
 default: `[]`).
 
 ## Security
