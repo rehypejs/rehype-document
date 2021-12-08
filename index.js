@@ -42,7 +42,7 @@ import {h} from 'hastscript'
 /**
  * Wrap a document around a fragment.
  *
- * @type {import('unified').Plugin<[Options] | [], Root>}
+ * @type {import('unified').Plugin<[Options?] | Array<void>, Root>}
  */
 export default function rehypeDocument(options = {}) {
   const meta = cast(options.meta)

@@ -8,22 +8,78 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**rehype**][rehype] plugin to wrap a document around a fragment.
+**[rehype][]** plugin to wrap a fragment in a document.
+
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`unified().use(rehypeDocument[, options])`](#unifieduserehypedocument-options)
+*   [Example](#example)
+    *   [Example: language](#example-language)
+    *   [Example: CSS](#example-css)
+    *   [Example: JS](#example-js)
+    *   [Example: metadata and links](#example-metadata-and-links)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Security](#security)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package is a [unified][] ([rehype][]) plugin to wrap a fragment in a
+document.
+It’s especially useful when going from a markdown file that represents an
+article and turning it into a complete HTML document.
+
+**unified** is a project that transforms content with abstract syntax trees
+(ASTs).
+**rehype** adds support for HTML to unified.
+**hast** is the HTML AST that rehype uses.
+This is a rehype plugin that wraps a fragment in a document.
+
+## When should I use this?
+
+This project is useful when you want to turn a fragment (specifically, some
+nodes that can exist in a `<body>` element) into a whole document (a `<html>`,
+`<head>`, and `<body>`, where the latter will contain the fragment).
+
+This plugin can make fragments valid whole documents.
+It’s not a (social) metadata manager.
+That’s done by [`rehype-meta`][rehype-meta].
+You can use both together.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install rehype-document
 ```
 
+In Deno with [Skypack][]:
+
+```js
+import rehypeDocument from 'https://cdn.skypack.dev/rehype-document@6?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import rehypeDocument from 'https://cdn.skypack.dev/rehype-document@6?min'
+</script>
+```
+
 ## Use
 
-Say `example.md` looks as follows:
+Say we have the following file `example.md`:
 
 ```markdown
 ## Hello world!
@@ -31,35 +87,33 @@ Say `example.md` looks as follows:
 This is **my** document.
 ```
 
-…and `example.js` like this:
+And our module `example.js` looks as follows:
 
 ```js
-import {readSync} from 'to-vfile'
-import {reporter} from 'vfile-reporter'
+import {read} from 'to-vfile'
 import {unified} from 'unified'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeDocument from 'rehype-document'
 import rehypeStringify from 'rehype-stringify'
 
-const file = readSync('example.md')
+main()
 
-unified()
-  .use(remarkParse)
-  .use(remarkRehype)
-  .use(rehypeDocument, {title: 'Hi!'})
-  .use(rehypeStringify)
-  .process(file)
-  .then((file) => {
-    console.error(reporter(file))
-    console.log(String(file))
-  })
+async function main() {
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeDocument, {title: 'Hi!'})
+    .use(rehypeStringify)
+    .process(await read('example.md'))
+
+  console.log(String(file))
+}
 ```
 
-Now, running `node example` yields:
+Now running `node example.js` yields:
 
 ```html
-example.md: no issues found
 <!doctype html>
 <html lang="en">
 <head>
@@ -81,18 +135,22 @@ The default export is `rehypeDocument`.
 
 ### `unified().use(rehypeDocument[, options])`
 
-Wrap a document around a fragment.
+Wrap a fragment in a document.
 
 ##### `options`
 
+Configuration (optional).
+
 ###### `options.title`
 
-Text to use as title (`string`, default: name of file, if any).
+Text to use as title (`string`, default: `stem` of file).
 
 ###### `options.language`
 
 Natural language of document (`string`, default: `'en'`).
 should be a [BCP 47][bcp47] language tag.
+
+> 👉 **Note**: you should set this if the content isn’t in English.
 
 ###### `options.responsive`
 
@@ -130,21 +188,209 @@ default: `[]`).
 External scripts to include at end of `body` (`string` or `Array<string>`,
 default: `[]`).
 
+## Example
+
+### Example: language
+
+This example shows how to set a language:
+
+```js
+import {unified} from 'unified'
+import rehypeParse from 'rehype-parse'
+import rehypeDocument from 'rehype-document'
+import rehypeStringify from 'rehype-stringify'
+
+main()
+
+async function main() {
+  const file = await unified()
+    .use(rehypeParse, {fragment: true})
+    .use(rehypeDocument, {title: 'Плутон', language: 'ru'})
+    .use(rehypeStringify)
+    .process('<h1>Привет, Плутон!</h1>')
+
+  console.log(String(file))
+}
+```
+
+Yields:
+
+```html
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Плутон</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>Привет, Плутон!</h1>
+</body>
+</html>
+```
+
+### Example: CSS
+
+This example shows how to reference CSS files and include stylesheets:
+
+```js
+import {unified} from 'unified'
+import rehypeParse from 'rehype-parse'
+import rehypeDocument from 'rehype-document'
+import rehypeStringify from 'rehype-stringify'
+
+main()
+
+async function main() {
+  const file = await unified()
+    .use(rehypeParse, {fragment: true})
+    .use(rehypeDocument, {
+      css: 'https://example.com/index.css',
+      style: 'body { color: red }'
+    })
+    .use(rehypeStringify)
+    .process('')
+
+  console.log(String(file))
+}
+```
+
+Yields:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body { color: red }</style>
+<link rel="stylesheet" href="https://example.com/index.css">
+</head>
+<body>
+</body>
+</html>
+```
+
+### Example: JS
+
+This example shows how to reference JS files and include scripts:
+
+```js
+import {unified} from 'unified'
+import rehypeParse from 'rehype-parse'
+import rehypeDocument from 'rehype-document'
+import rehypeStringify from 'rehype-stringify'
+
+main()
+
+async function main() {
+  const file = await unified()
+    .use(rehypeParse, {fragment: true})
+    .use(rehypeDocument, {
+      js: 'https://example.com/index.js',
+      script: 'console.log(1)'
+    })
+    .use(rehypeStringify)
+    .process('')
+
+  console.log(String(file))
+}
+```
+
+Yields:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<script>console.log(1)</script>
+<script src="https://example.com/index.js"></script>
+</body>
+</html>
+```
+
+### Example: metadata and links
+
+This example shows how to define metadata and include links (other than styles):
+
+```js
+import {unified} from 'unified'
+import rehypeParse from 'rehype-parse'
+import rehypeDocument from 'rehype-document'
+import rehypeStringify from 'rehype-stringify'
+
+main()
+
+async function main() {
+  const file = await unified()
+    .use(rehypeParse, {fragment: true})
+    .use(rehypeDocument, {
+      link: [
+        {rel: 'icon', href: '/favicon.ico', sizes: 'any'},
+        {rel: 'icon', href: '/icon.svg', type: 'image/svg+xml'}
+      ],
+      meta: [{name: 'generator', content: 'rehype-document'}]
+    })
+    .use(rehypeStringify)
+    .process('')
+
+  console.log(String(file))
+}
+```
+
+Yields:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="rehype-document">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+</head>
+<body>
+</body>
+</html>
+```
+
+> 💡 **Tip**: [`rehype-meta`][rehype-meta] is a (social) metadata manager.
+
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports an `Options` type, which specifies the interface of the accepted
+options.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
+
+This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
+`rehype` version 5+, and `unified` version 6+.
+
 ## Security
 
 Use of `rehype-document` can open you up to a [cross-site scripting (XSS)][xss]
 attack if you pass user provided content in options.
-
-Always be wary of user input and use [`rehype-sanitize`][sanitize].
+Always be wary of user input and use [`rehype-sanitize`][rehype-sanitize].
 
 ## Related
 
 *   [`rehype-meta`](https://github.com/rehypejs/rehype-meta)
-    — Add metadata to the head of a document
+    — add metadata to the head of a document
 *   [`rehype-format`](https://github.com/rehypejs/rehype-format)
-    — Format HTML
+    — format HTML
 *   [`rehype-minify`](https://github.com/rehypejs/rehype-minify)
-    — Minify HTML
+    — minify HTML
 
 ## Contribute
 
@@ -188,6 +434,8 @@ abide by its terms.
 
 [chat]: https://github.com/rehypejs/rehype/discussions
 
+[skypack]: https://www.skypack.dev
+
 [npm]: https://docs.npmjs.com/cli/install
 
 [health]: https://github.com/rehypejs/.github
@@ -202,6 +450,8 @@ abide by its terms.
 
 [author]: https://wooorm.com
 
+[unified]: https://github.com/unifiedjs/unified
+
 [rehype]: https://github.com/rehypejs/rehype
 
 [bcp47]: https://tools.ietf.org/html/bcp47
@@ -212,4 +462,8 @@ abide by its terms.
 
 [xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
 
-[sanitize]: https://github.com/rehypejs/rehype-sanitize
+[typescript]: https://www.typescriptlang.org
+
+[rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize
+
+[rehype-meta]: https://github.com/rehypejs/rehype-meta
