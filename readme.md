@@ -35,7 +35,7 @@
 This package is a [unified][] ([rehype][]) plugin to wrap a fragment in a
 document.
 It’s especially useful when going from a markdown file that represents an
-article or so and turning it into a complete HTML document.
+article and turning it into a complete HTML document.
 
 **unified** is a project that transforms content with abstract syntax trees
 (ASTs).
