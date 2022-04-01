@@ -63,17 +63,17 @@ In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 npm install rehype-document
 ```
 
-In Deno with [Skypack][]:
+In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeDocument from 'https://cdn.skypack.dev/rehype-document@6?dts'
+import rehypeDocument from 'https://esm.sh/rehype-document@6'
 ```
 
-In browsers with [Skypack][]:
+In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeDocument from 'https://cdn.skypack.dev/rehype-document@6?min'
+  import rehypeDocument from 'https://esm.sh/rehype-document@6?bundle'
 </script>
 ```
 
@@ -434,7 +434,7 @@ abide by its terms.
 
 [chat]: https://github.com/rehypejs/rehype/discussions
 
-[skypack]: https://www.skypack.dev
+[esmsh]: https://esm.sh
 
 [npm]: https://docs.npmjs.com/cli/install
 
