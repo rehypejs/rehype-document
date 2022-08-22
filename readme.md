@@ -57,7 +57,7 @@ You can use both together.
 ## Install
 
 This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 12.20+, 14.14+, 16.0+, 18.0+), install with [npm][]:
 
 ```sh
 npm install rehype-document
@@ -97,18 +97,14 @@ import remarkRehype from 'remark-rehype'
 import rehypeDocument from 'rehype-document'
 import rehypeStringify from 'rehype-stringify'
 
-main()
+const file = await unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeDocument, {title: 'Hi!'})
+  .use(rehypeStringify)
+  .process(await read('example.md'))
 
-async function main() {
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeDocument, {title: 'Hi!'})
-    .use(rehypeStringify)
-    .process(await read('example.md'))
-
-  console.log(String(file))
-}
+console.log(String(file))
 ```
 
 Now running `node example.js` yields:
@@ -204,17 +200,13 @@ import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
 import rehypeStringify from 'rehype-stringify'
 
-main()
+const file = await unified()
+  .use(rehypeParse, {fragment: true})
+  .use(rehypeDocument, {title: 'Плутон', language: 'ru'})
+  .use(rehypeStringify)
+  .process('<h1>Привет, Плутон!</h1>')
 
-async function main() {
-  const file = await unified()
-    .use(rehypeParse, {fragment: true})
-    .use(rehypeDocument, {title: 'Плутон', language: 'ru'})
-    .use(rehypeStringify)
-    .process('<h1>Привет, Плутон!</h1>')
-
-  console.log(String(file))
-}
+console.log(String(file))
 ```
 
 Yields:
@@ -243,20 +235,16 @@ import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
 import rehypeStringify from 'rehype-stringify'
 
-main()
+const file = await unified()
+  .use(rehypeParse, {fragment: true})
+  .use(rehypeDocument, {
+    css: 'https://example.com/index.css',
+    style: 'body { color: red }'
+  })
+  .use(rehypeStringify)
+  .process('')
 
-async function main() {
-  const file = await unified()
-    .use(rehypeParse, {fragment: true})
-    .use(rehypeDocument, {
-      css: 'https://example.com/index.css',
-      style: 'body { color: red }'
-    })
-    .use(rehypeStringify)
-    .process('')
-
-  console.log(String(file))
-}
+console.log(String(file))
 ```
 
 Yields:
@@ -285,20 +273,16 @@ import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
 import rehypeStringify from 'rehype-stringify'
 
-main()
+const file = await unified()
+  .use(rehypeParse, {fragment: true})
+  .use(rehypeDocument, {
+    js: 'https://example.com/index.js',
+    script: 'console.log(1)'
+  })
+  .use(rehypeStringify)
+  .process('')
 
-async function main() {
-  const file = await unified()
-    .use(rehypeParse, {fragment: true})
-    .use(rehypeDocument, {
-      js: 'https://example.com/index.js',
-      script: 'console.log(1)'
-    })
-    .use(rehypeStringify)
-    .process('')
-
-  console.log(String(file))
-}
+console.log(String(file))
 ```
 
 Yields:
@@ -327,23 +311,19 @@ import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
 import rehypeStringify from 'rehype-stringify'
 
-main()
+const file = await unified()
+  .use(rehypeParse, {fragment: true})
+  .use(rehypeDocument, {
+    link: [
+      {rel: 'icon', href: '/favicon.ico', sizes: 'any'},
+      {rel: 'icon', href: '/icon.svg', type: 'image/svg+xml'}
+    ],
+    meta: [{name: 'generator', content: 'rehype-document'}]
+  })
+  .use(rehypeStringify)
+  .process('')
 
-async function main() {
-  const file = await unified()
-    .use(rehypeParse, {fragment: true})
-    .use(rehypeDocument, {
-      link: [
-        {rel: 'icon', href: '/favicon.ico', sizes: 'any'},
-        {rel: 'icon', href: '/icon.svg', type: 'image/svg+xml'}
-      ],
-      meta: [{name: 'generator', content: 'rehype-document'}]
-    })
-    .use(rehypeStringify)
-    .process('')
-
-  console.log(String(file))
-}
+console.log(String(file))
 ```
 
 Yields:
@@ -375,7 +355,7 @@ options.
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
