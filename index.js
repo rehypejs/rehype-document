@@ -66,7 +66,9 @@ export default function rehypeDocument(options = {}) {
     /** @type {Array<Node>} */
     const contents = tree.type === 'root' ? tree.children.concat() : [tree]
     /** @type {Array<Node>} */
-    const head = [{type: 'text', value: '\n'}, h('meta', {charset: 'utf-8'})]
+    // XO is wrong, HTML wants the `-`.
+    /* eslint-disable-next-line unicorn/text-encoding-identifier-case */
+    const head = [{type: 'text', value: '\n'}, h('meta', {charSet: 'utf-8'})]
     let index = -1
 
     if (contents.length > 0) {
