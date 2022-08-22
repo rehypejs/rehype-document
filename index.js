@@ -11,7 +11,7 @@
  * @property {string|undefined} [language='en']
  *   Natural language of document.
  *   Should be a [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
- * @property {'ltr'|'rtl'|'auto'|undefined} [dir='ltr']
+ * @property {'ltr'|'rtl'|'auto'|undefined} [dir]
  *   Direction of the document.
  * @property {boolean|undefined} [responsive=true]
  *   Whether to insert a `meta[viewport]`.

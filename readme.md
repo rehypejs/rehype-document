@@ -154,9 +154,7 @@ should be a [BCP 47][bcp47] language tag.
 
 ##### `options.dir`
 
-Direction of the document (`'ltr'|'rtl'|'auto'`, default: `'ltr'`).
-
-> 👉 **Note**: if you don’t set this, it won’t be injected in the document.
+Direction of text in the document (`'ltr'`, `'rtl'`, `'auto'`, optional).
 
 ###### `options.responsive`
 
