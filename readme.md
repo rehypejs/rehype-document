@@ -156,7 +156,7 @@ should be a [BCP 47][bcp47] language tag.
 
 Direction of the document (`'ltr'|'rtl'|'auto'`, default: `'ltr'`).
 
-> 👉 **Note**: if you don't set this, it won't be injected in the document, even though its value is `'ltr'`.
+> 👉 **Note**: if you don’t set this, it won’t be injected in the document.
 
 ###### `options.responsive`
 
