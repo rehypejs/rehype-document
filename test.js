@@ -93,6 +93,27 @@ test('rehypeDocument()', (t) => {
   t.equal(
     rehype()
       .data('settings', {fragment: true})
+      .use(rehypeDocument, {dir: 'rtl'})
+      .processSync('')
+      .toString(),
+    [
+      '<!doctype html>',
+      '<html lang="en" dir="rtl">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '</head>',
+      '<body>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n'),
+    'should support `dir`'
+  )
+
+  t.equal(
+    rehype()
+      .data('settings', {fragment: true})
       .use(rehypeDocument, {responsive: false})
       .processSync('')
       .toString(),

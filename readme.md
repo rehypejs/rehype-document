@@ -152,6 +152,10 @@ should be a [BCP 47][bcp47] language tag.
 
 > 👉 **Note**: you should set this if the content isn’t in English.
 
+##### `options.dir`
+
+Direction of text in the document (`'ltr'`, `'rtl'`, `'auto'`, optional).
+
 ###### `options.responsive`
 
 Whether to insert a `meta[viewport]` (`boolean`, default: `true`).
