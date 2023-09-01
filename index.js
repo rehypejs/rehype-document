@@ -1,6 +1,6 @@
 /**
  * @typedef {import('hast').Root} Root
- * @typedef {import('hast').DocType} DocType
+ * @typedef {import('hast').Doctype} Doctype
  * @typedef {Root|Root['children'][number]} Node
  * @typedef {import('hast').Properties} Properties
  *
@@ -122,8 +122,7 @@ export default function rehypeDocument(options = {}) {
 
     contents.push({type: 'text', value: '\n'})
 
-    /** @type {DocType} */
-    // @ts-expect-error: `name` is no longer needed.
+    /** @type {Doctype} */
     const doctype = {type: 'doctype'}
 
     return {
