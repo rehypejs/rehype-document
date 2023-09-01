@@ -170,7 +170,10 @@ Configuration (TypeScript type).
 *   `style` (`Array<string>` or `string`, optional)
     — CSS source code of `<style>`s to add
 *   `title` (`string`, optional)
-    — text to use as title; defaults to the file name (if any)
+    — text to use as title; defaults to the file name (if any); can bet set
+    with `file.data.matter.title` ([`vfile-matter`][vfile-matter]) and
+    `file.data.meta.title`
+    ([`rehype-infer-title-meta`][rehype-infer-title-meta]), which are preferred
 
 ## Example
 
@@ -355,7 +358,7 @@ Always be wary of user input and use [`rehype-sanitize`][rehype-sanitize].
 
 ## Related
 
-*   [`rehype-meta`](https://github.com/rehypejs/rehype-meta)
+*   [`rehype-meta`][rehype-meta]
     — add metadata to the head of a document
 *   [`rehype-format`](https://github.com/rehypejs/rehype-format)
     — format HTML
@@ -428,15 +431,19 @@ abide by its terms.
 
 [rehype]: https://github.com/rehypejs/rehype
 
-[rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize
+[rehype-infer-title-meta]: https://github.com/rehypejs/rehype-infer-title-meta
 
 [rehype-meta]: https://github.com/rehypejs/rehype-meta
+
+[rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize
+
+[typescript]: https://www.typescriptlang.org
 
 [unified]: https://github.com/unifiedjs/unified
 
 [unified-transformer]: https://github.com/unifiedjs/unified#transformer
 
-[typescript]: https://www.typescriptlang.org
+[vfile-matter]: https://github.com/vfile/vfile-matter
 
 [xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
 

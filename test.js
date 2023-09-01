@@ -591,4 +591,60 @@ test('rehypeDocument()', async function (t) {
       ].join('\n')
     )
   })
+
+  await t.test('should support `file.data.matter.title`', async function () {
+    assert.equal(
+      rehype()
+        .data('settings', {fragment: true})
+        .use(function () {
+          return function (_, file) {
+            file.data.matter = {title: 'alpha'}
+          }
+        })
+        .use(rehypeDocument)
+        .processSync('')
+        .toString(),
+      [
+        '<!doctype html>',
+        '<html lang="en">',
+        '<head>',
+        '<meta charset="utf-8">',
+        '<title>alpha</title>',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '</head>',
+        '<body>',
+        '</body>',
+        '</html>',
+        ''
+      ].join('\n')
+    )
+  })
+
+  await t.test('should support `file.data.meta.title`', async function () {
+    assert.equal(
+      rehype()
+        .data('settings', {fragment: true})
+        .use(function () {
+          return function (_, file) {
+            file.data.meta = {title: 'alpha'}
+          }
+        })
+        .use(rehypeDocument)
+        .processSync('')
+        .toString(),
+      [
+        '<!doctype html>',
+        '<html lang="en">',
+        '<head>',
+        '<meta charset="utf-8">',
+        '<title>alpha</title>',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '</head>',
+        '<body>',
+        '</body>',
+        '</html>',
+        ''
+      ].join('\n')
+    )
+  })
 })
