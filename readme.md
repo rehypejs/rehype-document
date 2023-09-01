@@ -315,10 +315,10 @@ const file = await unified()
   .use(rehypeParse, {fragment: true})
   .use(rehypeDocument, {
     link: [
-      {rel: 'icon', href: '/favicon.ico', sizes: 'any'},
-      {rel: 'icon', href: '/icon.svg', type: 'image/svg+xml'}
+      {href: '/favicon.ico', rel: 'icon', sizes: 'any'},
+      {href: '/icon.svg', rel: 'icon', type: 'image/svg+xml'}
     ],
-    meta: [{name: 'generator', content: 'rehype-document'}]
+    meta: [{content: 'rehype-document', name: 'generator'}]
   })
   .use(rehypeStringify)
   .process('')

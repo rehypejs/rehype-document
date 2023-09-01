@@ -1,73 +1,90 @@
 /**
+ * @typedef {import('hast').ElementContent} ElementContent
+ * @typedef {import('hast').Nodes} Nodes
  * @typedef {import('hast').Root} Root
- * @typedef {import('hast').Doctype} Doctype
- * @typedef {Root|Root['children'][number]} Node
- * @typedef {import('hast').Properties} Properties
  *
+ * @typedef {import('hastscript').Properties} Properties
+ *
+ * @typedef {import('vfile').VFile} VFile
+ */
+
+/**
  * @typedef Options
- * @property {string|undefined} [title]
- *   Text to use as title.
- *   Defaults to name of file (if any).
- * @property {string|undefined} [language='en']
- *   Natural language of document.
- *   Should be a [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
- * @property {'ltr'|'rtl'|'auto'|undefined} [dir]
- *   Direction of the document.
- * @property {boolean|undefined} [responsive=true]
- *   Whether to insert a `meta[viewport]`.
- * @property {string|Array<string>|undefined} [style=[]]
- *   CSS to include in `head` in `<style>` elements.
- * @property {string|Array<string>|undefined} [css=[]]
- *   Links to stylesheets to include in `head`.
- * @property {Properties|Array<Properties>|undefined} [meta=[]]
- *   Metadata to include in `head`.
- *
- *   Each object is passed as
- *   [`properties`](https://github.com/syntax-tree/hastscript#hselector-properties-children)
- *   to [`hastscript`](https://github.com/syntax-tree/hastscript) with a
- *   `meta` element.
- * @property {Properties|Array<Properties>|undefined} [link=[]]
- *   Link tags to include in `head`.
- *
- *   Each object is passed as
- *   [`properties`](https://github.com/syntax-tree/hastscript#hselector-properties-children)
- *   to [`hastscript`](https://github.com/syntax-tree/hastscript) with a `link`
- *   element.
- * @property {string|Array<string>|undefined} [script=[]]
- *   Inline scripts to include at end of `body` in `<script>`s.
- * @property {string|Array<string>|undefined} [js=[]]
- *   External scripts to include at end of `body` in `script[src]`s.
+ *   Configuration.
+ * @property {Array<string> | string | null | undefined} [css]
+ *   URLs to stylesheets to use in `<link>`s (optional).
+ * @property {'auto' | 'ltr' | 'rtl' | null | undefined} [dir]
+ *   Direction of the document (optional).
+ * @property {Array<string> | string | null | undefined} [js]
+ *   URLs to scripts to use as `src` on `<script>`s (optional).
+ * @property {string | null | undefined} [language='en']
+ *   Language of document (default: `'en'`); should be a
+ *   [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
+ * @property {Array<Properties> | Properties | null | undefined} [link]
+ *   Generate extra `<link>`s with these properties (optional); passed as
+ *   `properties` to [`hastscript`](https://github.com/syntax-tree/hastscript)
+ *   with `'link'`.
+ * @property {Array<Properties> | Properties | null | undefined} [meta]
+ *   Generate extra `<meta>`s with these properties (optional); passed as
+ *   `properties` to [`hastscript`](https://github.com/syntax-tree/hastscript)
+ *   with `'meta'`.
+ * @property {boolean | null | undefined} [responsive=true]
+ *   Generate a `meta[viewport]` (default: `true`).
+ * @property {Array<string> | string | null | undefined} [script]
+ *   JavaScript source code of `<script>`s to add at end of `body` (optional).
+ * @property {Array<string> | string | null | undefined} [style]
+ *   CSS source code of `<style>`s to add (optional).
+ * @property {string | null | undefined} [title]
+ *   Text to use as title (optional); defaults to the file name (if any).
  */
 
 import {h} from 'hastscript'
 
-/**
- * Wrap a document around a fragment.
- *
- * @type {import('unified').Plugin<[Options?] | Array<void>, Root>}
- */
-export default function rehypeDocument(options = {}) {
-  const meta = cast(options.meta)
-  const link = cast(options.link)
-  const styles = cast(options.style)
-  const css = cast(options.css)
-  const scripts = cast(options.script)
-  const js = cast(options.js)
+/** @type {Options} */
+const emptyOptions = {}
 
-  if (options.responsive !== false) {
-    meta.unshift({
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1'
-    })
+/**
+ * Wrap a fragment in a document.
+ *
+ * @param {Readonly<Options> | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
+ */
+export default function rehypeDocument(options) {
+  const settings = options || emptyOptions
+  const css = toList(settings.css)
+  const dir = settings.dir
+  const js = toList(settings.js)
+  const language = settings.language || 'en'
+  const link = toList(settings.link)
+  let meta = toList(settings.meta)
+  const script = toList(settings.script)
+  const style = toList(settings.style)
+  const title = settings.title
+
+  if (settings.responsive !== false) {
+    meta = [
+      {content: 'width=device-width, initial-scale=1', name: 'viewport'},
+      ...meta
+    ]
   }
 
-  return (tree, file) => {
-    const title = options.title || file.stem
-    /** @type {Array<Node>} */
-    const contents = tree.type === 'root' ? tree.children.concat() : [tree]
-    /** @type {Array<Node>} */
-    // XO is wrong, HTML wants the `-`.
-    /* eslint-disable-next-line unicorn/text-encoding-identifier-case */
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @param {VFile} file
+   *   File.
+   * @param {Root} tree
+   *   New tree.
+   */
+  return function (tree, file) {
+    const titleText = title || file.stem
+    /** @type {Array<Nodes>} */
+    const contents = tree.type === 'root' ? [...tree.children] : [tree]
+    /** @type {Array<ElementContent>} */
     const head = [{type: 'text', value: '\n'}, h('meta', {charSet: 'utf-8'})]
     let index = -1
 
@@ -75,8 +92,8 @@ export default function rehypeDocument(options = {}) {
       contents.unshift({type: 'text', value: '\n'})
     }
 
-    if (title) {
-      head.push({type: 'text', value: '\n'}, h('title', [title]))
+    if (titleText) {
+      head.push({type: 'text', value: '\n'}, h('title', titleText))
     }
 
     while (++index < meta.length) {
@@ -89,11 +106,11 @@ export default function rehypeDocument(options = {}) {
       head.push({type: 'text', value: '\n'}, h('link', link[index]))
     }
 
-    // Inject style tags before linked CSS
+    // Inject style tags after linked CSS
     index = -1
 
-    while (++index < styles.length) {
-      head.push({type: 'text', value: '\n'}, h('style', styles[index]))
+    while (++index < style.length) {
+      head.push({type: 'text', value: '\n'}, h('style', style[index]))
     }
 
     index = -1
@@ -101,7 +118,7 @@ export default function rehypeDocument(options = {}) {
     while (++index < css.length) {
       head.push(
         {type: 'text', value: '\n'},
-        h('link', {rel: 'stylesheet', href: css[index]})
+        h('link', {href: css[index], rel: 'stylesheet'})
       )
     }
 
@@ -110,8 +127,8 @@ export default function rehypeDocument(options = {}) {
     // Inject script tags before linked JS
     index = -1
 
-    while (++index < scripts.length) {
-      contents.push({type: 'text', value: '\n'}, h('script', scripts[index]))
+    while (++index < script.length) {
+      contents.push({type: 'text', value: '\n'}, h('script', script[index]))
     }
 
     index = -1
@@ -122,15 +139,12 @@ export default function rehypeDocument(options = {}) {
 
     contents.push({type: 'text', value: '\n'})
 
-    /** @type {Doctype} */
-    const doctype = {type: 'doctype'}
-
     return {
       type: 'root',
       children: [
-        doctype,
+        {type: 'doctype'},
         {type: 'text', value: '\n'},
-        h('html', {lang: options.language || 'en', dir: options.dir}, [
+        h('html', {dir, lang: language}, [
           {type: 'text', value: '\n'},
           h('head', head),
           {type: 'text', value: '\n'},
@@ -144,14 +158,19 @@ export default function rehypeDocument(options = {}) {
 }
 
 /**
+ * Cast `value` to a list.
+ *
  * @template Thing
- * @param {Thing|Array<Thing>|null|undefined} value
+ *   Value kind.
+ * @param {Array<Thing> | Thing | null | undefined} value
+ *   Value to cast.
  * @returns {Array<Thing>}
+ *   List.
  */
-function cast(value) {
+function toList(value) {
   return value === null || value === undefined
     ? []
-    : typeof value === 'string' || !Array.isArray(value)
-    ? [value]
-    : value
+    : Array.isArray(value)
+    ? value
+    : [value]
 }

@@ -1,9 +1,19 @@
+/**
+ * @typedef {import('hast').Element} Element
+ */
+
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {rehype} from 'rehype'
 import rehypeDocument from './index.js'
 
 test('rehypeDocument()', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+      'default'
+    ])
+  })
+
   await t.test('should work', async function () {
     assert.equal(
       rehype()
@@ -16,7 +26,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '</body>',
@@ -39,7 +49,7 @@ test('rehypeDocument()', async function (t) {
         '<head>',
         '<meta charset="utf-8">',
         '<title>alpha</title>',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '</body>',
@@ -62,7 +72,7 @@ test('rehypeDocument()', async function (t) {
         '<head>',
         '<meta charset="utf-8">',
         '<title>bravo</title>',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         'charlie',
@@ -85,7 +95,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en-GB">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '</body>',
@@ -104,10 +114,10 @@ test('rehypeDocument()', async function (t) {
         .toString(),
       [
         '<!doctype html>',
-        '<html lang="en" dir="rtl">',
+        '<html dir="rtl" lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '</body>',
@@ -142,7 +152,7 @@ test('rehypeDocument()', async function (t) {
     assert.equal(
       rehype()
         .data('settings', {fragment: true})
-        .use(rehypeDocument, {meta: {name: 'author', content: 'Jane'}})
+        .use(rehypeDocument, {meta: {content: 'Jane', name: 'author'}})
         .processSync('')
         .toString(),
       [
@@ -150,8 +160,8 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
-        '<meta name="author" content="Jane">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '<meta content="Jane" name="author">',
         '</head>',
         '<body>',
         '</body>',
@@ -167,8 +177,8 @@ test('rehypeDocument()', async function (t) {
         .data('settings', {fragment: true})
         .use(rehypeDocument, {
           meta: [
-            {name: 'author', content: 'Jane'},
-            {property: 'og:type', content: 'article'}
+            {content: 'Jane', name: 'author'},
+            {content: 'article', property: 'og:type'}
           ]
         })
         .processSync('')
@@ -178,9 +188,9 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
-        '<meta name="author" content="Jane">',
-        '<meta property="og:type" content="article">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '<meta content="Jane" name="author">',
+        '<meta content="article" property="og:type">',
         '</head>',
         '<body>',
         '</body>',
@@ -195,8 +205,8 @@ test('rehypeDocument()', async function (t) {
       rehype()
         .data('settings', {fragment: true})
         .use(rehypeDocument, {
-          responsive: false,
-          meta: {name: 'author', content: 'Jane'}
+          meta: {content: 'Jane', name: 'author'},
+          responsive: false
         })
         .processSync('')
         .toString(),
@@ -205,7 +215,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="author" content="Jane">',
+        '<meta content="Jane" name="author">',
         '</head>',
         '<body>',
         '</body>',
@@ -220,7 +230,7 @@ test('rehypeDocument()', async function (t) {
       rehype()
         .data('settings', {fragment: true})
         .use(rehypeDocument, {
-          link: {rel: 'canonical', href: 'https://example.com'}
+          link: {href: 'https://example.com', rel: 'canonical'}
         })
         .processSync('')
         .toString(),
@@ -229,8 +239,8 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
-        '<link rel="canonical" href="https://example.com">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '<link href="https://example.com" rel="canonical">',
         '</head>',
         '<body>',
         '</body>',
@@ -246,12 +256,12 @@ test('rehypeDocument()', async function (t) {
         .data('settings', {fragment: true})
         .use(rehypeDocument, {
           link: [
-            {rel: 'canonical', href: 'https://example.com'},
+            {href: 'https://example.com', rel: 'canonical'},
             {
-              rel: 'alternate',
               href: '/feed.xml',
-              type: 'application/atom+xml',
-              title: 'Feed'
+              rel: 'alternate',
+              title: 'Feed',
+              type: 'application/atom+xml'
             }
           ]
         })
@@ -262,9 +272,9 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
-        '<link rel="canonical" href="https://example.com">',
-        '<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Feed">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '<link href="https://example.com" rel="canonical">',
+        '<link href="/feed.xml" rel="alternate" title="Feed" type="application/atom+xml">',
         '</head>',
         '<body>',
         '</body>',
@@ -286,7 +296,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '<style>body {color: blue}</style>',
         '</head>',
         '<body>',
@@ -311,7 +321,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '<style>body {color: blue}</style>',
         '<style>a {color: red}</style>',
         '</head>',
@@ -335,8 +345,8 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
-        '<link rel="stylesheet" href="delta.css">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '<link href="delta.css" rel="stylesheet">',
         '</head>',
         '<body>',
         '</body>',
@@ -358,9 +368,9 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
-        '<link rel="stylesheet" href="echo.css">',
-        '<link rel="stylesheet" href="foxtrot.css">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '<link href="echo.css" rel="stylesheet">',
+        '<link href="foxtrot.css" rel="stylesheet">',
         '</head>',
         '<body>',
         '</body>',
@@ -382,9 +392,9 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '<style>a {color: red}</style>',
-        '<link rel="stylesheet" href="delta.css">',
+        '<link href="delta.css" rel="stylesheet">',
         '</head>',
         '<body>',
         '</body>',
@@ -406,7 +416,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '<script src="golf.js"></script>',
@@ -429,7 +439,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '<script src="hotel.js"></script>',
@@ -453,7 +463,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '<script>console.log("Hello");</script>',
@@ -478,7 +488,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '<script>console.log("Hello");</script>',
@@ -505,7 +515,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '<script>console.log("Hello");</script>',
@@ -529,7 +539,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '<a>a</a><b>b</b>',
@@ -544,14 +554,24 @@ test('rehypeDocument()', async function (t) {
     assert.equal(
       rehype()
         .use(function () {
-          Object.assign(this, {
-            parser: () => ({
+          // @ts-expect-error: TypeScript is bad at `this`.
+          // eslint-disable-next-line unicorn/no-this-assignment
+          const self = /** @type {import('unified').Processor<Element>} */ (
+            this
+          )
+
+          /** @type {import('unified').Parser<Element>} */
+          self.parser = function () {
+            /** @type {Element} */
+            const node = {
               type: 'element',
               tagName: 'a',
               properties: {id: 'a'},
               children: [{type: 'text', value: 'a'}]
-            })
-          })
+            }
+
+            return node
+          }
         })
         .use(rehypeDocument)
         .processSync('')
@@ -561,7 +581,7 @@ test('rehypeDocument()', async function (t) {
         '<html lang="en">',
         '<head>',
         '<meta charset="utf-8">',
-        '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
         '</head>',
         '<body>',
         '<a id="a">a</a>',
