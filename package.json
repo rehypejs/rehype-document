@@ -4,16 +4,16 @@
   "description": "rehype plugin to wrap a document around a fragment",
   "license": "MIT",
   "keywords": [
-    "unified",
+    "document",
+    "hast",
+    "html",
+    "plugin",
     "rehype",
     "rehype-plugin",
-    "plugin",
-    "html",
-    "hast",
     "syntax",
     "tree",
-    "wrap",
-    "document"
+    "unified",
+    "wrap"
   ],
   "repository": "rehypejs/rehype-document",
   "bugs": "https://github.com/rehypejs/rehype-document/issues",
@@ -37,6 +37,7 @@
   "dependencies": {
     "@types/hast": "^3.0.0",
     "hastscript": "^8.0.0",
+    "remark-rehype": "^10.1.0",
     "vfile": "^6.0.0"
   },
   "devDependencies": {

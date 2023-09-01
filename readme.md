@@ -18,8 +18,9 @@
 *   [Use](#use)
 *   [API](#api)
     *   [`unified().use(rehypeDocument[, options])`](#unifieduserehypedocument-options)
+    *   [`Options`](#options)
 *   [Example](#example)
-    *   [Example: language](#example-language)
+    *   [Example: language and direction](#example-language-and-direction)
     *   [Example: CSS](#example-css)
     *   [Example: JS](#example-js)
     *   [Example: metadata and links](#example-metadata-and-links)
@@ -56,8 +57,8 @@ You can use both together.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
-In Node.js (version 12.20+, 14.14+, 16.0+, 18.0+), install with [npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install rehype-document
@@ -87,15 +88,15 @@ Say we have the following file `example.md`:
 This is **my** document.
 ```
 
-And our module `example.js` looks as follows:
+…and a module `example.js` :
 
 ```js
-import {read} from 'to-vfile'
-import {unified} from 'unified'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
 import rehypeDocument from 'rehype-document'
 import rehypeStringify from 'rehype-stringify'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import {read} from 'to-vfile'
+import {unified} from 'unified'
 
 const file = await unified()
   .use(remarkParse)
@@ -107,7 +108,7 @@ const file = await unified()
 console.log(String(file))
 ```
 
-Now running `node example.js` yields:
+…then running `node example.js` yields:
 
 ```html
 <!doctype html>
@@ -115,7 +116,7 @@ Now running `node example.js` yields:
 <head>
 <meta charset="utf-8">
 <title>Hi!</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="width=device-width, initial-scale=1" name="viewport">
 </head>
 <body>
 <h2>Hello world!</h2>
@@ -127,84 +128,67 @@ Now running `node example.js` yields:
 ## API
 
 This package exports no identifiers.
-The default export is `rehypeDocument`.
+The default export is [`rehypeDocument`][api-rehype-document].
 
 ### `unified().use(rehypeDocument[, options])`
 
 Wrap a fragment in a document.
 
-##### `options`
+###### Parameters
 
-Configuration (optional).
+*   `options` ([`Options`][api-options], optional)
+    — configuration
 
-###### `options.title`
+###### Returns
 
-Text to use as title (`string`, default: `stem` of file).
+Transform ([`Transformer`][unified-transformer]).
 
-###### `options.language`
+### `Options`
 
-Natural language of document (`string`, default: `'en'`).
-should be a [BCP 47][bcp47] language tag.
+Configuration (TypeScript type).
 
-> 👉 **Note**: you should set this if the content isn’t in English.
+###### Fields
 
-###### `options.dir`
-
-Direction of text in the document (`'ltr'`, `'rtl'`, `'auto'`, optional).
-
-###### `options.responsive`
-
-Whether to insert a `meta[viewport]` (`boolean`, default: `true`).
-
-###### `options.style`
-
-CSS to include in `head` in `<style>` elements (`string` or `Array<string>`,
-default: `[]`).
-
-###### `options.css`
-
-Links to stylesheets to include in `head` (`string` or `Array<string>`,
-default: `[]`).
-
-###### `options.meta`
-
-Metadata to include in `head` (`Object` or `Array<Object>`, default: `[]`).
-Each object is passed as [`properties`][props] to [`hastscript`][h] with a
-`meta` element.
-
-###### `options.link`
-
-Link tags to include in `head` (`Object` or `Array<Object>`, default: `[]`).
-Each object is passed as [`properties`][props] to [`hastscript`][h] with a
-`link` element.
-
-###### `options.script`
-
-Inline scripts to include at end of `body` (`string` or `Array<string>`,
-default: `[]`).
-
-###### `options.js`
-
-External scripts to include at end of `body` (`string` or `Array<string>`,
-default: `[]`).
+*   `css` (`Array<string>` or `string`, optional)
+    — URLs to stylesheets to use in `<link>`s
+*   `dir` (`'auto'`, `'ltr'`, or `'rtl'`, optional)
+    — direction of the document
+*   `js` (`Array<string>` or `string`, optional)
+    — URLs to scripts to use as `src` on `<script>`s
+*   `lang` (`string`, default: `'en'`)
+    — language of document; should be a [BCP 47][bcp47] language tag
+*   `link` (`Array<Properties>` or `Properties`, optional)
+    — generate extra `<link>`s with these properties; passed as `properties`
+    to [`hastscript`][hastscript] with `'link'`
+*   `meta` (`Array<Properties>` or `Properties`, optional)
+    — generate extra `<meta>`s with these properties; passed as `properties`
+    to [`hastscript`][hastscript] with `'meta'`
+*   `responsive` (`boolean`, default: `true`)
+    — generate a `meta[viewport]`
+*   `script` (`Array<string>` or `string`, optional)
+    — JavaScript source code of `<script>`s to add at end of `body`
+*   `style` (`Array<string>` or `string`, optional)
+    — CSS source code of `<style>`s to add
+*   `title` (`string`, optional)
+    — text to use as title; defaults to the file name (if any)
 
 ## Example
 
-### Example: language
+### Example: language and direction
 
 This example shows how to set a language:
 
 ```js
-import {unified} from 'unified'
-import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
+import rehypeParse from 'rehype-parse'
 import rehypeStringify from 'rehype-stringify'
+import {unified} from 'unified'
 
 const file = await unified()
   .use(rehypeParse, {fragment: true})
-  .use(rehypeDocument, {title: 'Плутон', language: 'ru'})
+  .use(rehypeDocument, {title: 'פּלוטאָ', language: 'yi', dir: 'rtl'})
   .use(rehypeStringify)
-  .process('<h1>Привет, Плутон!</h1>')
+  .process('<h1>העלא, פּלוטאָ!</h1>')
 
 console.log(String(file))
 ```
@@ -213,14 +197,14 @@ Yields:
 
 ```html
 <!doctype html>
-<html lang="ru">
+<html dir="rtl" lang="yi">
 <head>
 <meta charset="utf-8">
-<title>Плутон</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>פּלוטאָ</title>
+<meta content="width=device-width, initial-scale=1" name="viewport">
 </head>
 <body>
-<h1>Привет, Плутон!</h1>
+<h1>העלא, פּלוטאָ!</h1>
 </body>
 </html>
 ```
@@ -230,10 +214,10 @@ Yields:
 This example shows how to reference CSS files and include stylesheets:
 
 ```js
-import {unified} from 'unified'
-import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
+import rehypeParse from 'rehype-parse'
 import rehypeStringify from 'rehype-stringify'
+import {unified} from 'unified'
 
 const file = await unified()
   .use(rehypeParse, {fragment: true})
@@ -254,9 +238,9 @@ Yields:
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="width=device-width, initial-scale=1" name="viewport">
 <style>body { color: red }</style>
-<link rel="stylesheet" href="https://example.com/index.css">
+<link href="https://example.com/index.css" rel="stylesheet">
 </head>
 <body>
 </body>
@@ -268,10 +252,10 @@ Yields:
 This example shows how to reference JS files and include scripts:
 
 ```js
-import {unified} from 'unified'
-import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
+import rehypeParse from 'rehype-parse'
 import rehypeStringify from 'rehype-stringify'
+import {unified} from 'unified'
 
 const file = await unified()
   .use(rehypeParse, {fragment: true})
@@ -292,7 +276,7 @@ Yields:
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="width=device-width, initial-scale=1" name="viewport">
 </head>
 <body>
 <script>console.log(1)</script>
@@ -306,10 +290,10 @@ Yields:
 This example shows how to define metadata and include links (other than styles):
 
 ```js
-import {unified} from 'unified'
-import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
+import rehypeParse from 'rehype-parse'
 import rehypeStringify from 'rehype-stringify'
+import {unified} from 'unified'
 
 const file = await unified()
   .use(rehypeParse, {fragment: true})
@@ -333,10 +317,10 @@ Yields:
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="rehype-document">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="rehype-document" name="generator">
+<link href="/favicon.ico" rel="icon" sizes="any">
+<link href="/icon.svg" rel="icon" type="image/svg+xml">
 </head>
 <body>
 </body>
@@ -348,15 +332,17 @@ Yields:
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports an `Options` type, which specifies the interface of the accepted
-options.
+It exports the additional type [`Options`][api-options].
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `rehype-document@^6`,
+compatible with Node.js 12.
 
 This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
 `rehype` version 5+, and `unified` version 6+.
@@ -404,9 +390,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/rehype-document
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/rehype-document.svg
+[size-badge]: https://img.shields.io/bundlejs/size/rehype-document
 
-[size]: https://bundlephobia.com/result?p=rehype-document
+[size]: https://bundlejs.com/?q=rehype-document
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -417,6 +403,8 @@ abide by its terms.
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
 [chat]: https://github.com/rehypejs/rehype/discussions
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [esmsh]: https://esm.sh
 
@@ -434,20 +422,24 @@ abide by its terms.
 
 [author]: https://wooorm.com
 
-[unified]: https://github.com/unifiedjs/unified
-
-[rehype]: https://github.com/rehypejs/rehype
-
 [bcp47]: https://tools.ietf.org/html/bcp47
 
-[props]: https://github.com/syntax-tree/hastscript#hselector-properties-children
+[hastscript]: https://github.com/syntax-tree/hastscript
 
-[h]: https://github.com/syntax-tree/hastscript
-
-[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
-
-[typescript]: https://www.typescriptlang.org
+[rehype]: https://github.com/rehypejs/rehype
 
 [rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize
 
 [rehype-meta]: https://github.com/rehypejs/rehype-meta
+
+[unified]: https://github.com/unifiedjs/unified
+
+[unified-transformer]: https://github.com/unifiedjs/unified#transformer
+
+[typescript]: https://www.typescriptlang.org
+
+[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[api-options]: #options
+
+[api-rehype-document]: #unifieduserehypedocument-options
