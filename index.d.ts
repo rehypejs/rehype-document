@@ -20,7 +20,7 @@ declare module 'vfile' {
   interface DataMapMeta extends DocumentFields {}
 
   interface DataMap {
-    matter: DataMapMeta
-    meta: DataMapMatter
+    matter: DataMapMatter
+    meta: DataMapMeta
   }
 }
