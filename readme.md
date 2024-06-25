@@ -12,24 +12,24 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`unified().use(rehypeDocument[, options])`](#unifieduserehypedocument-options)
-    *   [`Options`](#options)
-*   [Example](#example)
-    *   [Example: language and direction](#example-language-and-direction)
-    *   [Example: CSS](#example-css)
-    *   [Example: JS](#example-js)
-    *   [Example: metadata and links](#example-metadata-and-links)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`unified().use(rehypeDocument[, options])`](#unifieduserehypedocument-options)
+  * [`Options`](#options)
+* [Example](#example)
+  * [Example: language and direction](#example-language-and-direction)
+  * [Example: CSS](#example-css)
+  * [Example: JS](#example-js)
+  * [Example: metadata and links](#example-metadata-and-links)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -136,8 +136,8 @@ Wrap a fragment in a document.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ###### Returns
 
@@ -149,31 +149,31 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `css` (`Array<string>` or `string`, optional)
-    — URLs to stylesheets to use in `<link>`s
-*   `dir` (`'auto'`, `'ltr'`, or `'rtl'`, optional)
-    — direction of the document
-*   `js` (`Array<string>` or `string`, optional)
-    — URLs to scripts to use as `src` on `<script>`s
-*   `lang` (`string`, default: `'en'`)
-    — language of document; should be a [BCP 47][bcp47] language tag
-*   `link` (`Array<Properties>` or `Properties`, optional)
-    — generate extra `<link>`s with these properties; passed as `properties`
-    to [`hastscript`][hastscript] with `'link'`
-*   `meta` (`Array<Properties>` or `Properties`, optional)
-    — generate extra `<meta>`s with these properties; passed as `properties`
-    to [`hastscript`][hastscript] with `'meta'`
-*   `responsive` (`boolean`, default: `true`)
-    — generate a `meta[viewport]`
-*   `script` (`Array<string>` or `string`, optional)
-    — JavaScript source code of `<script>`s to add at end of `body`
-*   `style` (`Array<string>` or `string`, optional)
-    — CSS source code of `<style>`s to add
-*   `title` (`string`, optional)
-    — text to use as title; defaults to the file name (if any); can bet set
-    with `file.data.matter.title` ([`vfile-matter`][vfile-matter]) and
-    `file.data.meta.title`
-    ([`rehype-infer-title-meta`][rehype-infer-title-meta]), which are preferred
+* `css` (`Array<string>` or `string`, optional)
+  — URLs to stylesheets to use in `<link>`s
+* `dir` (`'auto'`, `'ltr'`, or `'rtl'`, optional)
+  — direction of the document
+* `js` (`Array<string>` or `string`, optional)
+  — URLs to scripts to use as `src` on `<script>`s
+* `lang` (`string`, default: `'en'`)
+  — language of document; should be a [BCP 47][bcp47] language tag
+* `link` (`Array<Properties>` or `Properties`, optional)
+  — generate extra `<link>`s with these properties; passed as `properties`
+  to [`hastscript`][hastscript] with `'link'`
+* `meta` (`Array<Properties>` or `Properties`, optional)
+  — generate extra `<meta>`s with these properties; passed as `properties`
+  to [`hastscript`][hastscript] with `'meta'`
+* `responsive` (`boolean`, default: `true`)
+  — generate a `meta[viewport]`
+* `script` (`Array<string>` or `string`, optional)
+  — JavaScript source code of `<script>`s to add at end of `body`
+* `style` (`Array<string>` or `string`, optional)
+  — CSS source code of `<style>`s to add
+* `title` (`string`, optional)
+  — text to use as title; defaults to the file name (if any); can bet set
+  with `file.data.matter.title` ([`vfile-matter`][vfile-matter]) and
+  `file.data.meta.title`
+  ([`rehype-infer-title-meta`][rehype-infer-title-meta]), which are preferred
 
 ## Example
 
@@ -358,12 +358,12 @@ Always be wary of user input and use [`rehype-sanitize`][rehype-sanitize].
 
 ## Related
 
-*   [`rehype-meta`][rehype-meta]
-    — add metadata to the head of a document
-*   [`rehype-format`](https://github.com/rehypejs/rehype-format)
-    — format HTML
-*   [`rehype-minify`](https://github.com/rehypejs/rehype-minify)
-    — minify HTML
+* [`rehype-meta`][rehype-meta]
+  — add metadata to the head of a document
+* [`rehype-format`](https://github.com/rehypejs/rehype-format)
+  — format HTML
+* [`rehype-minify`](https://github.com/rehypejs/rehype-minify)
+  — minify HTML
 
 ## Contribute
 
