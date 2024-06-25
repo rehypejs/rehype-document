@@ -1,5 +1,6 @@
 /**
- * @typedef {import('hast').Element} Element
+ * @import {Element} from 'hast'
+ * @import {Parser, Processor} from 'unified'
  */
 
 import assert from 'node:assert/strict'
@@ -556,11 +557,9 @@ test('rehypeDocument()', async function (t) {
         .use(function () {
           // @ts-expect-error: TypeScript is bad at `this`.
           // eslint-disable-next-line unicorn/no-this-assignment
-          const self = /** @type {import('unified').Processor<Element>} */ (
-            this
-          )
+          const self = /** @type {Processor<Element>} */ (this)
 
-          /** @type {import('unified').Parser<Element>} */
+          /** @type {Parser<Element>} */
           self.parser = function () {
             /** @type {Element} */
             const node = {
