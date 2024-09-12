@@ -155,7 +155,7 @@ Configuration (TypeScript type).
   — direction of the document
 * `js` (`Array<string>` or `string`, optional)
   — URLs to scripts to use as `src` on `<script>`s
-* `lang` (`string`, default: `'en'`)
+* `language` (`string`, default: `'en'`)
   — language of document; should be a [BCP 47][bcp47] language tag
 * `link` (`Array<Properties>` or `Properties`, optional)
   — generate extra `<link>`s with these properties; passed as `properties`
