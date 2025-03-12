@@ -2,6 +2,17 @@ import type {Properties} from 'hastscript'
 
 export {default} from './lib/index.js'
 
+// Currently needed to ensure `Array.isArray` does not cause type errors when
+// working with readonly arrays.
+//
+// More info [here](https://github.com/microsoft/TypeScript/issues/17002)
+declare global {
+  interface ArrayConstructor {
+    // type-coverage:ignore-next-line
+    isArray(arg: ReadonlyArray<any> | any): arg is ReadonlyArray<any>
+  }
+}
+
 /**
  * Fields supported by `rehype-document`.
  */
