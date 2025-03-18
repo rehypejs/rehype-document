@@ -1,14 +1,11 @@
 # rehype-document
 
-[![Build][build-badge]][build]
-[![Coverage][coverage-badge]][coverage]
-[![Downloads][downloads-badge]][downloads]
-[![Size][size-badge]][size]
-[![Sponsors][sponsors-badge]][collective]
-[![Backers][backers-badge]][collective]
-[![Chat][chat-badge]][chat]
+[![Build][badge-build-image]][badge-build-url]
+[![Coverage][badge-coverage-image]][badge-coverage-url]
+[![Downloads][badge-downloads-image]][badge-downloads-url]
+[![Size][badge-size-image]][badge-size-url]
 
-**[rehype][]** plugin to wrap a fragment in a document.
+**[rehype][github-rehype]** plugin to wrap a fragment in a document.
 
 ## Contents
 
@@ -33,8 +30,8 @@
 
 ## What is this?
 
-This package is a [unified][] ([rehype][]) plugin to wrap a fragment in a
-document.
+This package is a [unified][github-unified] ([rehype][github-rehype])
+plugin to wrap a fragment in a document.
 It’s especially useful when going from a markdown file that represents an
 article and turning it into a complete HTML document.
 
@@ -52,13 +49,13 @@ nodes that can exist in a `<body>` element) into a whole document (a `<html>`,
 
 This plugin can make fragments valid whole documents.
 It’s not a (social) metadata manager.
-That’s done by [`rehype-meta`][rehype-meta].
+That’s done by [`rehype-meta`][github-rehype-meta].
 You can use both together.
 
 ## Install
 
-This package is [ESM only][esm].
-In Node.js (version 16+), install with [npm][]:
+This package is [ESM only][github-gist-esm].
+In Node.js (version 16+), install with [npm][npmjs-install]:
 
 ```sh
 npm install rehype-document
@@ -141,7 +138,7 @@ Wrap a fragment in a document.
 
 ###### Returns
 
-Transform ([`Transformer`][unified-transformer]).
+Transform ([`Transformer`][github-unified-transformer]).
 
 ### `Options`
 
@@ -156,13 +153,13 @@ Configuration (TypeScript type).
 * `js` (`Array<string>` or `string`, optional)
   — URLs to scripts to use as `src` on `<script>`s
 * `language` (`string`, default: `'en'`)
-  — language of document; should be a [BCP 47][bcp47] language tag
+  — language of document; should be a [BCP 47][ietf-bcp47] language tag
 * `link` (`Array<Properties>` or `Properties`, optional)
   — generate extra `<link>`s with these properties; passed as `properties`
-  to [`hastscript`][hastscript] with `'link'`
+  to [`hastscript`][github-hastscript] with `'link'`
 * `meta` (`Array<Properties>` or `Properties`, optional)
   — generate extra `<meta>`s with these properties; passed as `properties`
-  to [`hastscript`][hastscript] with `'meta'`
+  to [`hastscript`][github-hastscript] with `'meta'`
 * `responsive` (`boolean`, default: `true`)
   — generate a `meta[viewport]`
 * `script` (`Array<string>` or `string`, optional)
@@ -171,9 +168,10 @@ Configuration (TypeScript type).
   — CSS source code of `<style>`s to add
 * `title` (`string`, optional)
   — text to use as title; defaults to the file name (if any); can bet set
-  with `file.data.matter.title` ([`vfile-matter`][vfile-matter]) and
+  with `file.data.matter.title` ([`vfile-matter`][github-vfile-matter]) and
   `file.data.meta.title`
-  ([`rehype-infer-title-meta`][rehype-infer-title-meta]), which are preferred
+  ([`rehype-infer-title-meta`][github-rehype-infer-title-meta]),
+  which are preferred
 
 ## Example
 
@@ -330,7 +328,8 @@ Yields:
 </html>
 ```
 
-> 💡 **Tip**: [`rehype-meta`][rehype-meta] is a (social) metadata manager.
+> 💡 **Tip**: [`rehype-meta`][github-rehype-meta] is a (social) metadata
+> manager.
 
 ## Types
 
@@ -352,13 +351,15 @@ This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
 
 ## Security
 
-Use of `rehype-document` can open you up to a [cross-site scripting (XSS)][xss]
+Use of `rehype-document` can open you up to a
+[cross-site scripting (XSS)][wikipedia-xss]
 attack if you pass user provided content in options.
-Always be wary of user input and use [`rehype-sanitize`][rehype-sanitize].
+Always be wary of user input and use
+[`rehype-sanitize`][github-rehype-sanitize].
 
 ## Related
 
-* [`rehype-meta`][rehype-meta]
+* [`rehype-meta`][github-rehype-meta]
   — add metadata to the head of a document
 * [`rehype-format`](https://github.com/rehypejs/rehype-format)
   — format HTML
@@ -367,86 +368,76 @@ Always be wary of user input and use [`rehype-sanitize`][rehype-sanitize].
 
 ## Contribute
 
-See [`contributing.md`][contributing] in [`rehypejs/.github`][health] for ways
-to get started.
-See [`support.md`][support] for ways to get help.
+See [`contributing.md`][health-contributing] in [`rehypejs/.github`][health]
+for ways to get started.
+See [`support.md`][health-support] for ways to get help.
 
-This project has a [code of conduct][coc].
+This project has a [code of conduct][health-coc].
 By interacting with this repository, organization, or community you agree to
 abide by its terms.
 
 ## License
 
-[MIT][license] © [Titus Wormer][author]
+[MIT][file-license] © [Titus Wormer][wooorm]
 
 <!-- Definitions -->
-
-[build-badge]: https://github.com/rehypejs/rehype-document/workflows/main/badge.svg
-
-[build]: https://github.com/rehypejs/rehype-document/actions
-
-[coverage-badge]: https://img.shields.io/codecov/c/github/rehypejs/rehype-document.svg
-
-[coverage]: https://codecov.io/github/rehypejs/rehype-document
-
-[downloads-badge]: https://img.shields.io/npm/dm/rehype-document.svg
-
-[downloads]: https://www.npmjs.com/package/rehype-document
-
-[size-badge]: https://img.shields.io/bundlejs/size/rehype-document
-
-[size]: https://bundlejs.com/?q=rehype-document
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
-
-[backers-badge]: https://opencollective.com/unified/backers/badge.svg
-
-[collective]: https://opencollective.com/unified
-
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
-
-[chat]: https://github.com/rehypejs/rehype/discussions
-
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-
-[esmsh]: https://esm.sh
-
-[npm]: https://docs.npmjs.com/cli/install
-
-[health]: https://github.com/rehypejs/.github
-
-[contributing]: https://github.com/rehypejs/.github/blob/HEAD/contributing.md
-
-[support]: https://github.com/rehypejs/.github/blob/HEAD/support.md
-
-[coc]: https://github.com/rehypejs/.github/blob/HEAD/code-of-conduct.md
-
-[license]: license
-
-[author]: https://wooorm.com
-
-[bcp47]: https://tools.ietf.org/html/bcp47
-
-[hastscript]: https://github.com/syntax-tree/hastscript
-
-[rehype]: https://github.com/rehypejs/rehype
-
-[rehype-infer-title-meta]: https://github.com/rehypejs/rehype-infer-title-meta
-
-[rehype-meta]: https://github.com/rehypejs/rehype-meta
-
-[rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize
-
-[typescript]: https://www.typescriptlang.org
-
-[unified]: https://github.com/unifiedjs/unified
-
-[unified-transformer]: https://github.com/unifiedjs/unified#transformer
-
-[vfile-matter]: https://github.com/vfile/vfile-matter
-
-[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
 
 [api-options]: #options
 
 [api-rehype-document]: #unifieduserehypedocument-options
+
+[badge-build-image]: https://github.com/rehypejs/rehype-document/workflows/main/badge.svg
+
+[badge-build-url]: https://github.com/rehypejs/rehype-document/actions
+
+[badge-coverage-image]: https://img.shields.io/codecov/c/github/rehypejs/rehype-document.svg
+
+[badge-coverage-url]: https://codecov.io/github/rehypejs/rehype-document
+
+[badge-downloads-image]: https://img.shields.io/npm/dm/rehype-document.svg
+
+[badge-downloads-url]: https://www.npmjs.com/package/rehype-document
+
+[badge-size-image]: https://img.shields.io/bundlejs/size/rehype-document
+
+[badge-size-url]: https://bundlejs.com/?q=rehype-document
+
+[esmsh]: https://esm.sh
+
+[file-license]: license
+
+[github-gist-esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[github-hastscript]: https://github.com/syntax-tree/hastscript
+
+[github-rehype]: https://github.com/rehypejs/rehype
+
+[github-rehype-infer-title-meta]: https://github.com/rehypejs/rehype-infer-title-meta
+
+[github-rehype-meta]: https://github.com/rehypejs/rehype-meta
+
+[github-rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize
+
+[github-unified]: https://github.com/unifiedjs/unified
+
+[github-unified-transformer]: https://github.com/unifiedjs/unified#transformer
+
+[github-vfile-matter]: https://github.com/vfile/vfile-matter
+
+[health]: https://github.com/rehypejs/.github
+
+[health-coc]: https://github.com/rehypejs/.github/blob/HEAD/code-of-conduct.md
+
+[health-contributing]: https://github.com/rehypejs/.github/blob/HEAD/contributing.md
+
+[health-support]: https://github.com/rehypejs/.github/blob/HEAD/support.md
+
+[ietf-bcp47]: https://tools.ietf.org/html/bcp47
+
+[npmjs-install]: https://docs.npmjs.com/cli/install
+
+[typescript]: https://www.typescriptlang.org
+
+[wikipedia-xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[wooorm]: https://wooorm.com
