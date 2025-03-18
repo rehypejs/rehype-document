@@ -1,8 +1,37 @@
 {
-  "name": "rehype-document",
-  "version": "7.0.3",
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/rehypejs/rehype-document/issues",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "dependencies": {
+    "@types/hast": "^3.0.0",
+    "hastscript": "^9.0.0",
+    "unified": "^11.0.0",
+    "vfile": "^6.0.0"
+  },
   "description": "rehype plugin to wrap a document around a fragment",
-  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "c8": "^10.0.0",
+    "prettier": "^3.0.0",
+    "rehype": "^13.0.0",
+    "remark-cli": "^12.0.0",
+    "remark-preset-wooorm": "^11.0.0",
+    "type-coverage": "^2.0.0",
+    "typescript": "^5.0.0",
+    "xo": "^0.60.0"
+  },
+  "exports": "./index.js",
+  "files": [
+    "index.d.ts",
+    "index.js",
+    "lib/"
+  ],
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
   "keywords": [
     "document",
     "hast",
@@ -15,49 +44,8 @@
     "unified",
     "wrap"
   ],
-  "repository": "rehypejs/rehype-document",
-  "bugs": "https://github.com/rehypejs/rehype-document/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
-  "contributors": [
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
-  ],
-  "sideEffects": false,
-  "type": "module",
-  "exports": "./index.js",
-  "files": [
-    "lib/",
-    "index.d.ts",
-    "index.js"
-  ],
-  "dependencies": {
-    "@types/hast": "^3.0.0",
-    "hastscript": "^9.0.0",
-    "unified": "^11.0.0",
-    "vfile": "^6.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "c8": "^10.0.0",
-    "prettier": "^3.0.0",
-    "rehype": "^13.0.0",
-    "remark-cli": "^12.0.0",
-    "remark-preset-wooorm": "^11.0.0",
-    "type-coverage": "^2.0.0",
-    "typescript": "^5.0.0",
-    "xo": "^0.60.0"
-  },
-  "scripts": {
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "format": "remark . --frail --output --quiet && prettier . --log-level warn --write && xo --fix",
-    "prepack": "npm run build && npm run format",
-    "test": "npm run build && npm run format && npm run test-coverage",
-    "test-api": "node --conditions development test.js",
-    "test-coverage": "c8 --100 --check-coverage --reporter lcov npm run test-api"
-  },
+  "license": "MIT",
+  "name": "rehype-document",
   "prettier": {
     "bracketSpacing": false,
     "singleQuote": true,
@@ -71,12 +59,21 @@
       "remark-preset-wooorm"
     ]
   },
+  "repository": "rehypejs/rehype-document",
+  "scripts": {
+    "build": "tsc --build --clean && tsc --build && type-coverage",
+    "format": "remark --frail --output --quiet -- . && prettier --log-level warn --write -- . && xo --fix",
+    "test-api": "node --conditions development test.js",
+    "test-coverage": "c8 --100 --reporter lcov -- npm run test-api",
+    "test": "npm run build && npm run format && npm run test-coverage"
+  },
+  "sideEffects": false,
   "typeCoverage": {
     "atLeast": 100,
-    "detail": true,
-    "ignoreCatch": true,
     "strict": true
   },
+  "type": "module",
+  "version": "7.0.3",
   "xo": {
     "overrides": [
       {
