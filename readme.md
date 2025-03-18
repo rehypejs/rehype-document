@@ -83,9 +83,9 @@ In browsers with [`esm.sh`][esmsh]:
 Say we have the following file `example.md`:
 
 ```markdown
-## Hello world!
+# Pluto
 
-This is **my** document.
+Pluto is a dwarf planet in the Kuiper belt.
 ```
 
 …and a module `example.js` :
@@ -101,7 +101,7 @@ import {unified} from 'unified'
 const file = await unified()
   .use(remarkParse)
   .use(remarkRehype)
-  .use(rehypeDocument, {title: 'Hi!'})
+  .use(rehypeDocument, {title: 'Pluto'})
   .use(rehypeStringify)
   .process(await read('example.md'))
 
@@ -115,12 +115,12 @@ console.log(String(file))
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Hi!</title>
+<title>Pluto</title>
 <meta content="width=device-width, initial-scale=1" name="viewport">
 </head>
 <body>
-<h2>Hello world!</h2>
-<p>This is <strong>my</strong> document.</p>
+<h1>Pluto</h1>
+<p>Pluto is a dwarf planet in the Kuiper belt.</p>
 </body>
 </html>
 ```
