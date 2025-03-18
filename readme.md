@@ -21,7 +21,6 @@
   * [Example: CSS](#example-css)
   * [Example: JS](#example-js)
   * [Example: metadata and links](#example-metadata-and-links)
-* [Types](#types)
 * [Compatibility](#compatibility)
 * [Security](#security)
 * [Related](#related)
@@ -43,9 +42,12 @@ This is a rehype plugin that wraps a fragment in a document.
 
 ## When should I use this?
 
-This project is useful when you want to turn a fragment (specifically, some
-nodes that can exist in a `<body>` element) into a whole document (a `<html>`,
-`<head>`, and `<body>`, where the latter will contain the fragment).
+This project is useful when you want to turn a fragment
+(specifically,
+some nodes that can exist in a `<body>` element)
+into a whole document
+(a `<html>`, `<head>`, and `<body>`, where the latter will contain the
+fragment).
 
 This plugin can make fragments valid whole documents.
 It’s not a (social) metadata manager.
@@ -55,7 +57,8 @@ You can use both together.
 ## Install
 
 This package is [ESM only][github-gist-esm].
-In Node.js (version 16+), install with [npm][npmjs-install]:
+In Node.js (version 16+),
+install with [npm][npmjs-install]:
 
 ```sh
 npm install rehype-document
@@ -125,6 +128,7 @@ console.log(String(file))
 ## API
 
 This package exports no identifiers.
+It exports the [TypeScript][] type [`Options`][api-options].
 The default export is [`rehypeDocument`][api-rehype-document].
 
 ### `unified().use(rehypeDocument[, options])`
@@ -146,30 +150,42 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-* `css` (`Array<string>` or `string`, optional)
+* `css`
+  (`Array<string>` or `string`, optional)
   — URLs to stylesheets to use in `<link>`s
-* `dir` (`'auto'`, `'ltr'`, or `'rtl'`, optional)
+* `dir`
+  (`'auto'`, `'ltr'`, or `'rtl'`, optional)
   — direction of the document
-* `js` (`Array<string>` or `string`, optional)
+* `js`
+  (`Array<string>` or `string`, optional)
   — URLs to scripts to use as `src` on `<script>`s
-* `language` (`string`, default: `'en'`)
+* `language`
+  (`string`, default: `'en'`)
   — language of document; should be a [BCP 47][ietf-bcp47] language tag
-* `link` (`Array<Properties>` or `Properties`, optional)
-  — generate extra `<link>`s with these properties; passed as `properties`
-  to [`hastscript`][github-hastscript] with `'link'`
-* `meta` (`Array<Properties>` or `Properties`, optional)
-  — generate extra `<meta>`s with these properties; passed as `properties`
-  to [`hastscript`][github-hastscript] with `'meta'`
-* `responsive` (`boolean`, default: `true`)
+* `link`
+  (`Array<Properties>` or `Properties`, optional)
+  — generate extra `<link>`s with these properties;
+  passed as `properties` to [`hastscript`][github-hastscript] with `'link'`
+* `meta`
+  (`Array<Properties>` or `Properties`, optional)
+  — generate extra `<meta>`s with these properties;
+  passed as `properties` to [`hastscript`][github-hastscript] with `'meta'`
+* `responsive`
+  (`boolean`, default: `true`)
   — generate a `meta[viewport]`
-* `script` (`Array<string>` or `string`, optional)
+* `script`
+  (`Array<string>` or `string`, optional)
   — JavaScript source code of `<script>`s to add at end of `body`
-* `style` (`Array<string>` or `string`, optional)
+* `style`
+  (`Array<string>` or `string`, optional)
   — CSS source code of `<style>`s to add
-* `title` (`string`, optional)
-  — text to use as title; defaults to the file name (if any); can bet set
-  with `file.data.matter.title` ([`vfile-matter`][github-vfile-matter]) and
-  `file.data.meta.title`
+* `title`
+  (`string`, optional)
+  — text to use as title;
+  defaults to the file name (if any);
+  can bet set with `file.data.matter.title`
+  ([`vfile-matter`][github-vfile-matter])
+  and `file.data.meta.title`
   ([`rehype-infer-title-meta`][github-rehype-infer-title-meta]),
   which are preferred
 
@@ -328,26 +344,24 @@ Yields:
 </html>
 ```
 
-> 💡 **Tip**: [`rehype-meta`][github-rehype-meta] is a (social) metadata
-> manager.
-
-## Types
-
-This package is fully typed with [TypeScript][].
-It exports the additional type [`Options`][api-options].
+> 💡 **Tip**:
+> [`rehype-meta`][github-rehype-meta] is a (social) metadata manager.
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
 
-When we cut a new major release, we drop support for unmaintained versions of
-Node.
-This means we try to keep the current release line, `rehype-document@^7`,
+When we cut a new major release,
+we drop support for unmaintained versions of Node.
+This means we try to keep the current release line,
+`rehype-document@7`,
 compatible with Node.js 16.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
-`rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -373,8 +387,9 @@ for ways to get started.
 See [`support.md`][health-support] for ways to get help.
 
 This project has a [code of conduct][health-coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## License
 
