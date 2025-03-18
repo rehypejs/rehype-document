@@ -27,6 +27,7 @@ export interface Options {
    */
   css?: ReadonlyArray<string> | string | null | undefined
 
+  // To do: next major: rename to `direction`?
   /**
    * Direction of the document (optional).
    */
