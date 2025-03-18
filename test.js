@@ -646,4 +646,31 @@ test('rehypeDocument()', async function (t) {
       ].join('\n')
     )
   })
+
+  await t.test('should support `body`', async function () {
+    assert.equal(
+      rehype()
+        .data('settings', {fragment: true})
+        .use(rehypeDocument, {
+          body: {
+            className: 'modern-theme'
+          }
+        })
+        .processSync('<a>a</a><b>b</b>')
+        .toString(),
+      [
+        '<!doctype html>',
+        '<html lang="en">',
+        '<head>',
+        '<meta charset="utf-8">',
+        '<meta content="width=device-width, initial-scale=1" name="viewport">',
+        '</head>',
+        '<body class="modern-theme">',
+        '<a>a</a><b>b</b>',
+        '</body>',
+        '</html>',
+        ''
+      ].join('\n')
+    )
+  })
 })

@@ -98,6 +98,11 @@ export interface Options {
    * which are preferred.
    */
   title?: string | null | undefined
+
+  /**
+   * Properties to add to the body tag (optional).
+   */
+  body?: Readonly<Properties>
 }
 
 // Add custom data supported when `rehype-document` is added.
