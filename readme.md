@@ -21,6 +21,7 @@
   * [Example: CSS](#example-css)
   * [Example: JS](#example-js)
   * [Example: metadata and links](#example-metadata-and-links)
+  * [Example: body properties](#example-body-properties)
 * [Compatibility](#compatibility)
 * [Security](#security)
 * [Related](#related)
@@ -188,6 +189,8 @@ Configuration (TypeScript type).
   and `file.data.meta.title`
   ([`rehype-infer-title-meta`][github-rehype-infer-title-meta]),
   which are preferred
+* `body` (`Properties`, optional)
+  — properties to add to the `<body>`
 
 ## Example
 
@@ -346,6 +349,43 @@ Yields:
 
 > 💡 **Tip**:
 > [`rehype-meta`][github-rehype-meta] is a (social) metadata manager.
+
+### Example: body properties
+
+This example shows how to add properties to `<body>`
+
+```js
+import rehypeDocument from 'rehype-document'
+import rehypeParse from 'rehype-parse'
+import rehypeStringify from 'rehype-stringify'
+import {unified} from 'unified'
+
+const file = await unified()
+  .use(rehypeParse, {fragment: true})
+  .use(rehypeDocument, {
+    body: {
+      className: "modern-theme"
+    }
+  })
+  .use(rehypeStringify)
+  .process('')
+
+console.log(String(file))
+```
+
+Yields:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+</head>
+<body class="modern-theme">
+</body>
+</html>
+```
 
 ## Compatibility
 
